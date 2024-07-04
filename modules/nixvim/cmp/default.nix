@@ -11,16 +11,14 @@
       sources = [
         {
           name = "nvim_lsp";
-          groupIndex = 1;
           priority = 3;
+          groupIndex = 1;
         }
         {
           name = "luasnip";
-          option = {
-            show_autosnippets = true;
-          };
-          groupIndex = 1;
           priority = 5;
+          groupIndex = 1;
+          option.show_autosnippets = true;
         }
         {
           name = "path";
@@ -28,8 +26,8 @@
         }
         {
           name = "buffer";
-          groupIndex = 2;
           priority = 2;
+          groupIndex = 2;
         }
       ];
     };
