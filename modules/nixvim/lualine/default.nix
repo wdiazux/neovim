@@ -18,45 +18,6 @@ with lib.plusultra.theme.catppuccin-mocha; {
           types = true,
         },
       }
-
-      -- require("nvim-navic").setup {
-      --   icons = {
-      --     File          = "󰈙 ",
-      --     Module        = " ",
-      --     Namespace     = "󰌗 ",
-      --     Package       = " ",
-      --     Class         = "󰌗 ",
-      --     Method        = "󰆧 ",
-      --     Property      = " ",
-      --     Field         = " ",
-      --     Constructor   = " ",
-      --     Enum          = "󰕘",
-      --     Interface     = "󰕘",
-      --     Function      = "󰊕 ",
-      --     Variable      = "󰆧 ",
-      --     Constant      = "󰏿 ",
-      --     String        = "󰀬 ",
-      --     Number        = "󰎠 ",
-      --     Boolean       = "◩ ",
-      --     Array         = "󰅪 ",
-      --     Object        = "󰅩 ",
-      --     Key           = "󰌋 ",
-      --     Null          = "󰟢 ",
-      --     EnumMember    = " ",
-      --     Struct        = "󰌗 ",
-      --     Event         = " ",
-      --     Operator      = "󰆕 ",
-      --     TypeParameter = "󰊄 ",
-      --   },
-      --   lsp = {
-      --     auto_attach = true,
-      --   },
-      --   highlight = false,
-      --   separator = " ⇢ ",
-      --   depth_limit = 0,
-      --   depth_limit_indicator = "..",
-      --   safe_output = true
-      -- }
     '';
 
     opts.laststatus = 3;
@@ -113,10 +74,10 @@ with lib.plusultra.theme.catppuccin-mocha; {
             name = "windows";
             extraConfig = {
               symbols = {
-                modified = "";
-                readonly = "";
-                unnamed = " ";
-                newfile = " ";
+                modified = "";
+                readonly = "";
+                unnamed = "";
+                newfile = "";
               };
             };
           }
@@ -148,10 +109,10 @@ with lib.plusultra.theme.catppuccin-mocha; {
               path = 1;
 
               symbols = {
-                modified = "";
-                readonly = "";
-                unnamed = " ";
-                newfile = " ";
+                modified = "";
+                readonly = "";
+                unnamed = "󱧃";
+                newfile = "";
               };
             };
           }
@@ -181,9 +142,9 @@ with lib.plusultra.theme.catppuccin-mocha; {
 
               symbols = {
                 modified = "";
-                readonly = "";
-                unnamed = " ";
-                newfile = " ";
+                readonly = "";
+                unnamed = "󱧃";
+                newfile = "";
               };
             };
           }
