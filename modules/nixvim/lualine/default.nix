@@ -37,7 +37,7 @@ with lib.plusultra.theme.catppuccin-mocha; {
           {
             name = lua.mkRaw ''
               function()
-                return ""
+                return ""
               end
             '';
           }
@@ -45,7 +45,7 @@ with lib.plusultra.theme.catppuccin-mocha; {
         lualine_b = [
           {
             name = "branch";
-            icon = "";
+            icon = "";
           }
           {name = "diff";}
         ];
@@ -75,8 +75,8 @@ with lib.plusultra.theme.catppuccin-mocha; {
             extraConfig = {
               symbols = {
                 modified = "";
-                readonly = "";
-                unnamed = "";
+                readonly = "󰌾";
+                unnamed = "󱧃";
                 newfile = "";
               };
             };
@@ -110,7 +110,7 @@ with lib.plusultra.theme.catppuccin-mocha; {
 
               symbols = {
                 modified = "";
-                readonly = "";
+                readonly = "󰌾";
                 unnamed = "󱧃";
                 newfile = "";
               };
@@ -142,7 +142,7 @@ with lib.plusultra.theme.catppuccin-mocha; {
 
               symbols = {
                 modified = "";
-                readonly = "";
+                readonly = "󰌾";
                 unnamed = "󱧃";
                 newfile = "";
               };
