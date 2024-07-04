@@ -14,9 +14,7 @@ in {
     vim-bufkill
   ];
 
-  globals = {
-    BufKillCreateMappings = 0;
-  };
+  globals.BufKillCreateMappings = 0;
 
   keymaps = [
     {
