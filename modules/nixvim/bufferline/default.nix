@@ -80,7 +80,7 @@ in {
       diagnostics = "nvim_lsp";
       diagnosticsIndicator = ''
         function(_, _, diagnostic)
-          local signs = { error = " ", warning = " ", hint = " ", info = " " }
+          local signs = { error = " ", warning = " ", hint = " ", info = " " }
           local severities = { "error", "warning" }
           local strs = {}
           for _, severity in ipairs(severities) do
