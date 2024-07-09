@@ -69,6 +69,7 @@ with lib.plusultra; {
     servers = {
       astro.enable = true;
       bashls.enable = true;
+      nushell.enable = true;
       cmake.enable = true;
       clangd.enable = true;
       eslint = {
