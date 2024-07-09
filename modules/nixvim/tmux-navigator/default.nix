@@ -1,50 +1,45 @@
-{...}: {
-  keymaps = [
-    {
-      mode = "n";
-      key = "<m-h>";
-      action = "<cmd>TmuxNavigateLeft<cr>";
-      options = {
-        silent = true;
-        desc = "Navigate left";
-      };
-    }
-    {
-      mode = "n";
-      key = "<m-j>";
-      action = "<cmd>TmuxNavigateDown<cr>";
-      options = {
-        silent = true;
-        desc = "Navigate down";
-      };
-    }
-    {
-      mode = "n";
-      key = "<m-k>";
-      action = "<cmd>TmuxNavigateUp<cr>";
-      options = {
-        silent = true;
-        desc = "Navigate up";
-      };
-    }
-    {
-      mode = "n";
-      key = "<m-l>";
-      action = "<cmd>TmuxNavigateRight<cr>";
-      options = {
-        silent = true;
-        desc = "Navigate right";
-      };
-    }
-  ];
-
+{
   plugins.tmux-navigator = {
     enable = true;
 
     settings = {
+      disable_when_zoomed = true;
       no_mappings = true;
-      no_wrap = true;
-      disabled_when_zoomed = 1;
     };
+
+    keymaps = [
+      {
+        action = "left";
+        key = "<m-h>";
+        options = {
+          silent = true;
+          desc = "Navigate left";
+        };
+      }
+      {
+        action = "down";
+        key = "<m-j>";
+        options = {
+          silent = true;
+          desc = "Navigate down";
+        };
+      }
+      {
+        action = "up";
+        key = "<m-k>";
+        options = {
+          silent = true;
+          desc = "Navigate up";
+        };
+      }
+      {
+        action = "right";
+        key = "<m-l>";
+        options = {
+          silent = true;
+          desc = "Navigate right";
+        };
+      }
+    ];
   };
 }

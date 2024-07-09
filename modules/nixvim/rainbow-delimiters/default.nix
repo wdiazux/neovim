@@ -1,12 +1,16 @@
-{...}: {
-  plugins.rainbow-delimiters = {
-    enable = true;
+{ lib, ... }:
+{
+  plugins = {
+    rainbow-delimiters = {
+      enable = true;
 
-    highlight = [
-      "RainbowDelimiterViolet"
-      "RainbowDelimiterBlue"
-      "RainbowDelimiterGreen"
-      "RainbowDelimiterCyan"
-    ];
+      highlight = [
+        "RainbowDelimiterViolet"
+        "RainbowDelimiterBlue"
+        "RainbowDelimiterGreen"
+        "RainbowDelimiterOrange"
+        "RainbowDelimiterCyan"
+      ];
+    };
   };
 }

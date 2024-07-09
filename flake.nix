@@ -20,7 +20,8 @@
     };
   };
 
-  outputs = inputs:
+  outputs =
+    inputs:
     inputs.snowfall-lib.mkFlake {
       inherit inputs;
       src = ./.;
@@ -29,13 +30,19 @@
       alias.packages.default = "neovim";
       channels-config.allowUnfree = true;
 
+      overlays = with inputs; [ nixvim.overlays.default ];
+
       outputs-builder = channels: {
-        formatter = channels.nixpkgs.alejandra;
+        formatter = channels.nixpkgs.nixfmt-rfc-style;
 
         checks.pre-commit-check = inputs.pre-commit-hooks.lib.${channels.nixpkgs.system}.run {
           src = ./.;
           hooks = {
-            alejandra.enable = true;
+            nixfmt = {
+              enable = true;
+              entry = "${channels.nixpkgs.nixfmt-rfc-style}/bin/nixfmt";
+              extraPackages = [ channels.nixpkgs.nixfmt-rfc-style ];
+            };
           };
         };
       };

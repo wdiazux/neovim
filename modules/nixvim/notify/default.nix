@@ -1,4 +1,4 @@
-{...}: {
+{
   plugins.notify = {
     enable = true;
 

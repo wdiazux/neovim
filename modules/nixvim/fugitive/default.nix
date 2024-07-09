@@ -1,3 +1,0 @@
-{...}: {
-  plugins.fugitive.enable = true;
-}

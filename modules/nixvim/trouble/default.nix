@@ -1,43 +1,37 @@
-{...}: {
-  keymaps = [
-    {
-      mode = "n";
-      key = "<leader>tt";
-      action = "<cmd>:TroubleToggle<cr>";
-      options = {
-        silent = true;
-        desc = "Toggle trouble";
-      };
-    }
-  ];
-
+{
   plugins.trouble = {
     enable = true;
 
     settings = {
-      autoClose = true;
-      autoPreview = true;
-      useDiagnosticSigns = true;
+      auto_close = true;
+      auto_open = false;
+      auto_fold = false;
+      auto_preview = false;
+      position = "right";
+      use_diagnostic_signs = true;
 
       action_keys = {
-        close = "q";
-        cancel = "<esc>";
-        refresh = "r";
-        jump = ["<cr>" "<tab>"];
-        open_split = ["S"];
-        open_vsplit = ["s"];
-        open_tab = ["<c-t>"];
-        jump_close = ["o"];
-        toggle_mode = ["m"];
-        toggle_preview = ["P"];
-        hover = "K";
-        preview = "p";
-        close_folds = ["zC" "zc"];
-        open_folds = ["zO" "zo"];
-        toggle_fold = ["zA" "za"];
-        previous = "k";
-        next = "j";
+        hover = "<leader>gh";
       };
     };
   };
+
+  keymaps = [
+    {
+      mode = "n";
+      action = "<cmd>Trouble diagnostics toggle<cr>";
+      key = "<leader>tt";
+      options = {
+        desc = "Toggle trouble";
+      };
+    }
+    {
+      mode = "n";
+      action = "<cmd>Trouble todo toggle<cr>";
+      key = "<leader>tn";
+      options = {
+        desc = "Toggle notes";
+      };
+    }
+  ];
 }

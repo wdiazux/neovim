@@ -1,32 +1,6 @@
-{lib, ...}:
-with lib.plusultra;
-with lib.plusultra.theme.catppuccin-mocha; {
-  highlight = {
-    NormalFloat = {
-      fg = color6;
-      bg = color0;
-    };
-    FloatBorder = {
-      fg = color6;
-      bg = color0;
-    };
-
-    NoiceCmdlinePopupBorderSearch = {
-      fg = color10;
-    };
-    NoiceCmdlineIconSearch = {
-      fg = color10;
-    };
-
-    NoicePopupMenu = {
-      fg = color6;
-      bg = color0;
-    };
-    NoicePopupMenuBorder = {
-      fg = color6;
-      bg = color0;
-    };
-  };
+{ helpers, pkgs, ... }:
+{
+  extraPlugins = with pkgs.vimPlugins; [ nui-nvim ];
 
   plugins.noice = {
     enable = true;
@@ -38,7 +12,39 @@ with lib.plusultra.theme.catppuccin-mocha; {
       long_message_to_split = true;
     };
 
+    views = {
+      popupmenu = {
+        backend = "cmp";
+      };
+    };
+
+    notify = {
+      enabled = true;
+    };
+
+    messages = {
+      enabled = true;
+    };
+
+    lsp = {
+      message = {
+        enabled = true;
+      };
+
+      progress = {
+        enabled = false;
+        view = "mini";
+      };
+    };
+
+    popupmenu = {
+      enabled = true;
+      backend = "nui";
+    };
+
     cmdline = {
+      enabled = true;
+
       format = {
         cmdline = {
           pattern = "^:";
@@ -80,45 +86,144 @@ with lib.plusultra.theme.catppuccin-mocha; {
           pattern = "^:%s*e%s+";
           icon = "";
         };
-        input = {};
+        input = { };
+      };
+    };
+
+    format = {
+      filter = {
+        pattern = [
+          ":%s*%%s*s:%s*"
+          ":%s*%%s*s!%s*"
+          ":%s*%%s*s/%s*"
+          "%s*s:%s*"
+          ":%s*s!%s*"
+          ":%s*s/%s*"
+        ];
+        icon = "";
+        lang = "regex";
+      };
+      replace = {
+        pattern = [
+          ":%s*%%s*s:%w*:%s*"
+          ":%s*%%s*s!%w*!%s*"
+          ":%s*%%s*s/%w*/%s*"
+          "%s*s:%w*:%s*"
+          ":%s*s!%w*!%s*"
+          ":%s*s/%w*/%s*"
+        ];
+        icon = "󱞪";
+        lang = "regex";
       };
     };
 
     routes = [
-      # Hide no info
-      {
-        filter = {find = "No information available";};
-        opts = {stop = true;};
-      }
-
-      # Hide unhelpful LSP info
-      {
-        filter = {
-          event = "lsp";
-          kind = "progress";
-          cond = lua.mkRaw ''
-            function(message)
-              local client = vim.tbl_get(message.opts, "progress", "client")
-              return client == "lua_ls" or client == "null-ls" -- skip lua-ls and null-ls progress
-            end
-          '';
-        };
-        opts = {skip = true;};
-      }
-
-      # Hide unnecessary messages
       {
         filter = {
           event = "msg_show";
           any = [
-            {find = "%d+L, %d+B";}
-            {find = "; after #%d+";}
-            {find = "; before #%d+";}
-            {find = "%d fewer lines";}
-            {find = "%d more lines";}
+            { find = "%d+L, %d+B"; }
+            { find = "; after #%d+"; }
+            { find = "; before #%d+"; }
+            { find = "%d fewer lines"; }
+            { find = "%d more lines"; }
           ];
         };
-        opts = {skip = true;};
+        opts = {
+          skip = true;
+        };
+      }
+
+      {
+        filter = {
+          event = "msg_show";
+          any = [
+            { find = "Vim:E220"; }
+            { find = "Error detected while processing TextChangedI Autocommands"; }
+          ];
+        };
+        opts = {
+          skip = true;
+        };
+      }
+
+      {
+        filter = {
+          event = "msg_show";
+          kind = "emsg";
+          any = [
+            { find = "E486:"; }
+            { find = "e944"; }
+          ];
+        };
+        opts = {
+          skip = true;
+        };
+      }
+
+      {
+        filter = {
+          event = "notify";
+          any = [
+            { find = "LSP client log is large"; }
+            { find = " was properly created"; }
+            { find = " was properly removed"; }
+          ];
+        };
+        opts = {
+          skip = true;
+        };
+      }
+
+      {
+        filter = {
+          event = "notify";
+          kind = "error";
+          any = [ { find = "AST is null on this unit"; } ];
+        };
+        opts = {
+          skip = true;
+        };
+      }
+
+      {
+        filter = {
+          event = "notify";
+          kind = "warn";
+          any = [ { find = "No results for "; } ];
+        };
+        opts = {
+          skip = true;
+        };
+      }
+
+      {
+        view = "cmdline_popup";
+        filter = {
+          event = "msg_show";
+          kind = "echo";
+          blocking = true;
+          find = "Hop pattern";
+        };
+        opts = {
+          skip = true;
+        };
+      }
+
+      {
+        view = "split";
+        filter = {
+          event = "msg_show";
+          min_height = 20;
+        };
+      }
+
+      {
+        view = "split";
+        filter = {
+          event = "noice";
+          kind = "debug";
+        };
       }
     ];
   };

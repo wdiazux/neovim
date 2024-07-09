@@ -1,57 +1,77 @@
-{pkgs, ...}: {
-  extraPlugins = with pkgs.vimPlugins; [hop-nvim];
+{
+  plugins.hop.enable = true;
 
-  extraConfigLua = ''
-    require("hop").setup()
-
-    require("which-key").register({
-      ["<leader>"] = {
-        name = "Hop",
-        a = {
-          "<cmd>HopAnywhere<cr>",
-          "Hop Anywhere"
-        },
-        c = {
-          "<cmd>HopChar1<cr>",
-          "Hop To Character"
-        },
-        C = {
-          "<cmd>HopChar2<cr>",
-          "Hop To Characters"
-        },
-        l = {
-          "<cmd>HopLineStart<cr>",
-          "Hop To Line Start"
-        },
-        L = {
-          "<cmd>HopLine<cr>",
-          "Hop To Line"
-        },
-        v = {
-          "<cmd>HopVertical<cr>",
-          "Hop Vertically"
-        },
-        p = {
-          "<cmd>HopPattern<cr>",
-          "Hop To Pattern"
-        },
-        b = {
-          "<cmd>HopWordBC<cr>",
-          "Hop To Previous Word"
-        },
-        w = {
-          "<cmd>HopWordAC<cr>",
-          "Hop To Next Word"
-        },
-        W = {
-          "<cmd>HopWord<cr>",
-          "Hop To Word"
-        }
-      },
-    }, {
-      mode = "n",
-      prefix = "<leader>",
-      silent = true,
-    })
-  '';
+  keymaps = [
+    {
+      key = "<leader><leader>a";
+      action = "<cmd>HopAnywhere<cr>";
+      options = {
+        desc = "Hop Anywhere";
+      };
+    }
+    {
+      key = "<leader><leader>c";
+      action = "<cmd>HopChar1<cr>";
+      options = {
+        desc = "Hop Char";
+      };
+    }
+    {
+      key = "<leader><leader>C";
+      action = "<cmd>HopChar2<cr>";
+      options = {
+        desc = "Hop Chars";
+      };
+    }
+    {
+      key = "<leader><leader>l";
+      action = "<cmd>HopLineStart<cr>";
+      options = {
+        desc = "Hop To Line Start";
+      };
+    }
+    {
+      key = "<leader><leader>L";
+      action = "<cmd>HopLine<cr>";
+      options = {
+        desc = "Hop To Line";
+      };
+    }
+    {
+      key = "<leader><leader>v";
+      action = "<cmd>HopVertical<cr>";
+      options = {
+        desc = "Hop Vertical";
+      };
+    }
+    {
+      key = "<leader><leader>p";
+      action = "<cmd>HopPattern<cr>";
+      options = {
+        desc = "Hop To Pattern";
+        silent = true;
+      };
+    }
+    {
+      key = "<leader><leader>b";
+      action = "<cmd>HopWordBC<cr>";
+      options = {
+        desc = "Hop To Previous Word";
+      };
+    }
+    {
+      key = "<leader><leader>w";
+      action = "<cmd>HopWordAC<cr>";
+      options = {
+        desc = "Hop To Next Word";
+      };
+    }
+    {
+      key = "<leader><leader>W";
+      action = "<cmd>HopWord<cr>";
+      options = {
+        desc = "Hop To Word";
+      };
+    }
+  ];
 }

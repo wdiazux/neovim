@@ -1,38 +1,51 @@
-{...}: {
+{ pkgs, helpers, ... }:
+{
   config = {
-    extraConfigLua = ''
-      do
-        local which_key = require("which-key")
+    vimAlias = true;
+    withNodeJs = true;
+    withRuby = true;
 
-        local function enable_wrap()
-          vim.o.wrap = true
-          vim.o.linebreak = true
-        end
+    luaLoader.enable = true;
 
-        local function disable_wrap()
-          vim.o.wrap = false
-          vim.o.linebreak = false
-        end
+    extraPlugins = with pkgs.vimPlugins; [ vim-bufkill ];
 
-        local function toggle_wrap()
-          if vim.o.wrap then
-            disable_wrap()
-          else
-            enable_wrap()
-          end
-        end
+    globals = {
+      mapleader = " ";
+      maplocalleader = " ";
+    };
 
-        which_key.register({
-          t = {
-            name = "Toggle",
-            w = {
-              toggle_wrap,
-              "Line Wrap"
-            },
-          },
-        }, { mode = "n", prefix = "<leader>", silent = true, noremap = true })
-      end
-    '';
+    opts = {
+      smartindent = true;
+      breakindent = true;
+      cursorline = true;
+
+      tabstop = 2;
+      shiftwidth = 2;
+
+      wrap = true;
+      linebreak = true;
+
+      number = true;
+      relativenumber = true;
+
+      signcolumn = "yes:1";
+
+      swapfile = false;
+      backup = false;
+      undofile = true;
+
+      termguicolors = true;
+
+      ignorecase = true;
+      smartcase = true;
+
+      splitbelow = true;
+      splitright = true;
+
+      scrolloff = 4;
+
+      laststatus = 3;
+    };
 
     keymaps = [
       {
@@ -88,30 +101,6 @@
           silent = true;
           desc = "Exit terminal mode";
         };
-      }
-    ];
-
-    globals = {
-      mapleader = " ";
-    };
-
-    opts = {
-      autoindent = true;
-      cursorline = true;
-      tabstop = 2;
-      shiftwidth = 2;
-      wrap = true;
-      linebreak = true;
-
-      number = true;
-      relativenumber = true;
-    };
-
-    autoCmd = [
-      {
-        event = ["BufRead" "BufNewFile"];
-        pattern = ["*.txt" "*.md" "*.tex"];
-        command = "setlocal spell";
       }
     ];
   };

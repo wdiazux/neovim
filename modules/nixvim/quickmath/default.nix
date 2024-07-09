@@ -1,3 +1,1 @@
-{...}: {
-  plugins.quickmath.enable = true;
-}
+{ plugins.quickmath.enable = true; }

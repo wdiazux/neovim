@@ -1,3 +1,1 @@
-{...}: {
-  plugins.neoscroll.enable = true;
-}
+{ plugins.neoscroll.enable = true; }

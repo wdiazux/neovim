@@ -1,127 +1,15 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
-with lib.plusultra; {
-  plugins.lsp = {
-    enable = true;
-
-    onAttach = ''
-      do
-        local lsp = require("lspconfig")
-        local which_key = require("which-key")
-
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        which_key.register({
-          g = {
-            name = "Go",
-            d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Go to definition" },
-            D = { "<cmd>lua vim.lsp.buf.declaration()<cr>", "Go to declaration" },
-            h = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover" },
-            i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "Go to implementation" },
-            n = { "<cmd>lua require('illuminate').next_reference{wrap=true}<cr>", "Go to next occurrence" },
-            p = { "<cmd>lua require('illuminate').next_reference{reverse=true,wrap=true}<cr>", "Go to previous occurrence" },
-            r = { "<cmd>lua vim.lsp.buf.references()<cr>", "Go to references" },
-            -- t = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "Go to type definition" },
-            ["<C-k>"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature help" }
-          },
-          ["["] = {
-            d = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next Diagnostic" },
-          },
-          ["]"] = {
-            d = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Previous Diagnostic" },
-          },
-        }, { buffer = buffer, mode = "n", noremap = true, silent = true })
-
-        which_key.register({
-          w = {
-            name = "Workspace",
-            a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", "Add workspace" },
-            l = { "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>", "List workspaces" },
-            r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", "Remove workspace" },
-          },
-          c = {
-            name = "Code",
-            a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Action" },
-            f = { "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", "Format" },
-            r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-          }
-        }, { buffer = buffer, mode = "n", prefix = "<leader>", noremap = true, silent = true })
-
-        if client.name == "tsserver" then
-          which_key.register({
-            c = {
-              name = "Code",
-              a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Action" },
-              f = { "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", "Format" },
-              r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-              i = {
-                name = "Imports",
-                o = { "<cmd>OrganizeImports<cr>", "Organize" },
-              },
-            }
-          }, { buffer = buffer, mode = "n", prefix = "<leader>", noremap = true, silent = true })
-        end
+{ helpers, pkgs, ... }:
+let
+  thunk =
+    body:
+    helpers.mkRaw ''
+      function()
+        ${body}
       end
     '';
-
-    servers = {
-      astro.enable = true;
-      bashls.enable = true;
-      nushell.enable = true;
-      cmake.enable = true;
-      clangd.enable = true;
-      eslint = {
-        enable = true;
-
-        extraOptions = {
-          settings = {
-            autoFixOnSave = true;
-          };
-        };
-      };
-      gopls.enable = true;
-      html.enable = true;
-      jsonls.enable = true;
-      lua-ls.enable = true;
-      pyright.enable = true;
-      rust-analyzer = {
-        enable = true;
-        installCargo = true;
-        installRustc = true;
-      };
-      tailwindcss.enable = true;
-      tsserver = {
-        enable = true;
-
-        extraOptions = {
-          commands = {
-            OrganizeImports = lua.mkRaw ''
-              {
-                function()
-                  vim.lsp.buf.execute_command {
-                    title = "",
-                    command = "_typescript.organizeImports",
-                    arguments = { vim.api.nvim_buf_get_name(0) },
-                  }
-                end,
-                description = "Organize Imports",
-              }
-            '';
-          };
-        };
-      };
-      yamlls.enable = true;
-
-      nil-ls = {
-        enable = true;
-        settings = {
-          formatting.command = [(lib.getExe pkgs.alejandra) "--quiet"];
-        };
-      };
-    };
-  };
+in
+{
+  extraPackages = with pkgs; [ nixfmt-rfc-style ];
 
   extraConfigLuaPre = ''
     do
@@ -134,10 +22,158 @@ with lib.plusultra; {
 
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
         underline = true,
-        update_in_insert = false,
+        update_in_insert = true,
         virtual_text = { spacing = 4, prefix = "●" },
         severity_sort = true,
       })
     end
   '';
+
+  autoCmd = [
+    {
+      event = [
+        "BufRead"
+        "BufNewFile"
+      ];
+      pattern = [
+        "*.txt"
+        "*.md"
+        "*.tex"
+        "LICENSE"
+      ];
+      command = "setlocal spell";
+    }
+  ];
+
+  plugins.lsp = {
+    enable = true;
+    inlayHints = true;
+
+    keymaps = {
+      silent = true;
+
+      diagnostic = {
+        "<leader>j" = "goto_next";
+        "<leader>k" = "goto_prev";
+      };
+
+      lspBuf = {
+        K = "hover";
+        gh = "hover";
+        gD = "references";
+        # gd = "definition";
+        gi = "implementation";
+        gt = "type_definition";
+      };
+
+      extra = [
+        {
+          action = thunk "vim.cmd [[<cmd>LspStop<CR>]]";
+          key = "<leader>lx";
+          options = {
+            desc = "LSP: Stop";
+            silent = true;
+          };
+        }
+        {
+          action = thunk "vim.cmd [[<cmd>LspStart<CR>]]";
+          key = "<leader>ls";
+          options = {
+            desc = "LSP: Start";
+            silent = true;
+          };
+        }
+        {
+          action = thunk "vim.cmd [[<cmd>LspRestart<CR>]]";
+          key = "<leader>lr";
+          options = {
+            desc = "LSP: Restart";
+            silent = true;
+          };
+        }
+        {
+          action =
+            helpers.mkRaw
+              # lua
+              ''
+                require('telescope.builtin').lsp_definitions
+              '';
+          key = "<leader>gd";
+          options = {
+            desc = "LSP: Definitions";
+            silent = true;
+          };
+        }
+      ];
+    };
+
+    servers = {
+      astro.enable = true;
+      clangd.enable = true;
+      cmake.enable = true;
+      cssls.enable = true;
+      denols.enable = true;
+      dockerls.enable = true;
+      docker-compose-language-service.enable = true;
+      eslint.enable = true;
+      emmet-ls.enable = true;
+      gleam.enable = true;
+      gdscript.enable = true;
+      gopls.enable = true;
+      graphql.enable = true;
+      helm-ls.enable = true;
+      html.enable = true;
+      jsonls.enable = true;
+      ltex.enable = true;
+      lua-ls.enable = true;
+      nginx-language-server.enable = true;
+      nixd = {
+        enable = true;
+
+        settings = {
+          nixpkgs = {
+            expr = "import <nixpkgs> {}";
+          };
+          formatting = {
+            command = [ "nixpkgs-fmt" ];
+          };
+          options = {
+            nixos = {
+              expr = ''
+                let configs = (builtins.getFlake ("git+file://" + builtins.toString ./.)).nixosConfigurations; in (builtins.head (builtins.attrValues configs)).options
+              '';
+            };
+            home_manager = {
+              expr = ''
+                let configs = (builtins.getFlake ("git+file://" + builtins.toString ./.)).homeConfigurations; in (builtins.head (builtins.attrValues configs)).options
+              '';
+            };
+            darwin = {
+              expr = ''
+                let configs = (builtins.getFlake ("git+file://" + builtins.toString ./.)).darwinConfigurations; in (builtins.head (builtins.attrValues configs)).options
+              '';
+            };
+          };
+        };
+      };
+      nushell.enable = true;
+      perlpls.enable = true;
+      prismals.enable = true;
+      pyright.enable = true;
+
+      rust-analyzer = {
+        enable = true;
+        installCargo = true;
+        installRustc = true;
+      };
+
+      sqls.enable = true;
+      tailwindcss.enable = true;
+      terraformls.enable = true;
+      tsserver.enable = true;
+      vuels.enable = true;
+      yamlls.enable = true;
+      zls.enable = true;
+    };
+  };
 }
