@@ -1,4 +1,4 @@
-{ helpers, ... }:
+{ ... }:
 {
   colorschemes.catppuccin = {
     enable = true;
