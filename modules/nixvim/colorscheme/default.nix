@@ -5,14 +5,7 @@
     settings = {
       flavour = "mocha";
       term_colors = true;
-      integrations = {
-        cmp = true;
-        dap = true;
-        gitsigns = true;
-        nvimtree = true;
-        telescope = true;
-        treesitter = true;
-      };
+      default_integrations = true;
     };
   };
 }
