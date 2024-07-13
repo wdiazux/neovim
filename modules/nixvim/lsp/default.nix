@@ -148,11 +148,6 @@ in
                 let configs = (builtins.getFlake ("git+file://" + builtins.toString ./.)).homeConfigurations; in (builtins.head (builtins.attrValues configs)).options
               '';
             };
-            darwin = {
-              expr = ''
-                let configs = (builtins.getFlake ("git+file://" + builtins.toString ./.)).darwinConfigurations; in (builtins.head (builtins.attrValues configs)).options
-              '';
-            };
           };
         };
       };
@@ -173,7 +168,6 @@ in
       tsserver.enable = true;
       vuels.enable = true;
       yamlls.enable = true;
-      zls.enable = true;
     };
   };
 }
