@@ -33,6 +33,8 @@ let
   ) raw-modules;
 
   raw-neovim = pkgs.nixvim.makeNixvimWithModule {
+    inherit pkgs;
+
     module = {
       imports = wrapped-modules;
 
