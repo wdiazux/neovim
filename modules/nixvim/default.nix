@@ -3,7 +3,6 @@
   config = {
     vimAlias = true;
     withNodeJs = true;
-    withRuby = true;
 
     luaLoader.enable = true;
 

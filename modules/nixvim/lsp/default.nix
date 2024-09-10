@@ -92,12 +92,9 @@ in
           };
         }
         {
-          action =
-            helpers.mkRaw
-              # lua
-              ''
-                require('telescope.builtin').lsp_definitions
-              '';
+          action = helpers.mkRaw ''
+            require('telescope.builtin').lsp_definitions
+          '';
           key = "<leader>gd";
           options = {
             desc = "LSP: Definitions";

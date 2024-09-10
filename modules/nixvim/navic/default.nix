@@ -2,13 +2,15 @@
   plugins.navic = {
     enable = true;
 
-    highlight = true;
-    separator = "  ";
+    settings = {
+      highlight = true;
+      separator = "  ";
 
-    lsp = {
-      autoAttach = true;
+      lsp = {
+        autoAttach = true;
 
-      preference = [ "nixd" ];
+        preference = [ "nixd" ];
+      };
     };
   };
 }

@@ -39,7 +39,7 @@
         checks.pre-commit-check = inputs.pre-commit-hooks.lib.${channels.nixpkgs.system}.run {
           src = ./.;
           hooks = {
-            nixfmt = {
+            nixfmt-rfc-style = {
               enable = true;
               entry = "${channels.nixpkgs.nixfmt-rfc-style}/bin/nixfmt";
               extraPackages = [ channels.nixpkgs.nixfmt-rfc-style ];
