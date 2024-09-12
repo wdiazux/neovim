@@ -5,43 +5,46 @@
   plugins.telescope = {
     enable = true;
 
+    extensions = {
+      fzf-native.enable = true;
+      file-browser.enable = true;
+      media-files.enable = true;
+      ui-select.enable = true;
+    };
+
     keymaps = {
       "<C-p>" = {
-        action = "git_files";
-        options = {
-          desc = "Telescope: Files";
-        };
+        action = "find_files";
+        options.desc = "Telescope: Files";
       };
       "<leader>ff" = {
-        action = "git_files";
-        options = {
-          desc = "Telescope: Files";
-        };
+        action = "find_files";
+        options.desc = "Telescope: Files";
+      };
+      "<leader>fd" = {
+        action = "find_browser";
+        options.desc = "Telescope: File Explorer";
+      };
+      "<leader>fb" = {
+        action = "buffers";
+        options.desc = "Telescope: Buffers";
       };
       "<leader>fF" = {
         action = "find_files hidden=true";
-        options = {
-          desc = "Telescope: Files (hidden)";
-        };
+        options.desc = "Telescope: Files (hidden)";
       };
       "<leader>fg" = {
         action = "live_grep";
-        options = {
-          desc = "Telescope: Grep";
-        };
+        options.desc = "Telescope: Grep";
       };
       "<leader>fG" = {
         action = "live_grep hidden=true";
-        options = {
-          desc = "Telescope: Files";
-        };
+        options.desc = "Telescope: Files";
       };
-    };
-
-    extensions = {
-      fzf-native.enable = true;
-      media-files.enable = true;
-      ui-select.enable = true;
+      "<leader>fh" = {
+        action = "git_files";
+        options.desc = "Telescope: Git Files";
+      };
     };
   };
 }
