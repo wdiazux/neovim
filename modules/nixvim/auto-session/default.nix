@@ -4,7 +4,7 @@
 
     bypassSessionSaveFileTypes = [
       "dashboard"
-      "nvim-tree"
+      "neo-tree"
     ];
 
     autoRestore.enabled = true;
@@ -21,9 +21,7 @@
       mode = "n";
       action = "<cmd>Telescope session-lens<cr>";
       key = "<leader>fs";
-      options = {
-        desc = "Find Session";
-      };
+      options.desc = "Find Session";
     }
   ];
 }

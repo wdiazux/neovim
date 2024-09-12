@@ -1,10 +1,6 @@
 {
   keymaps = [
     {
-      mode = [
-        "n"
-        "v"
-      ];
       action = "<cmd>WhichKey<cr>";
       key = "<leader>?";
       options = {
@@ -12,6 +8,10 @@
         silent = true;
         noremap = true;
       };
+      mode = [
+        "n"
+        "v"
+      ];
     }
   ];
 

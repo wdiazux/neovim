@@ -5,9 +5,25 @@
   plugins.telescope = {
     enable = true;
 
+    settings = {
+      defaults = {
+        file_ignore_patterns = [
+          "^.git/"
+          "^.idea/"
+          "^.mypy_cache/"
+          "^__pycache__/"
+          "^output/"
+          "^data/"
+          "%.ipynb"
+        ];
+        set_env.COLORTERM = "truecolor";
+      };
+
+      pickers.colorscheme.enable_preview = true;
+    };
+
     extensions = {
       fzf-native.enable = true;
-      file-browser.enable = true;
       media-files.enable = true;
       ui-select.enable = true;
     };
@@ -21,10 +37,6 @@
         action = "find_files";
         options.desc = "Telescope: Files";
       };
-      "<leader>fd" = {
-        action = "find_browser";
-        options.desc = "Telescope: File Explorer";
-      };
       "<leader>fb" = {
         action = "buffers";
         options.desc = "Telescope: Buffers";
@@ -33,7 +45,7 @@
         action = "find_files hidden=true";
         options.desc = "Telescope: Files (hidden)";
       };
-      "<leader>fg" = {
+      "<leader>f/" = {
         action = "live_grep";
         options.desc = "Telescope: Grep";
       };

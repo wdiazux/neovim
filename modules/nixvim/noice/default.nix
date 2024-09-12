@@ -13,34 +13,34 @@
     };
 
     views = {
-      popupmenu = {
-        backend = "cmp";
+      popupmenu.backend = "cmp";
+      cmdline_popup.border.style = "single";
+      confirm.border = {
+        style = "single";
+        text.top = "";
       };
     };
 
-    notify = {
-      enabled = true;
-    };
+    notify.enabled = true;
 
     messages = {
-      enabled = true;
+      view = "mini";
+      viewError = "mini";
+      viewWarn = "mini";
     };
 
     lsp = {
-      message = {
-        enabled = true;
+      override = {
+        "vim.lsp.util.convert_input_to_markdown_lines" = true;
+        "vim.lsp.util.stylize_markdown" = true;
+        "cmp.entry.get_documentation" = true;
       };
 
-      progress = {
-        enabled = false;
-        view = "mini";
-      };
+      progress.enabled = true;
+      signature.enabled = true;
     };
 
-    popupmenu = {
-      enabled = true;
-      backend = "nui";
-    };
+    popupmenu.backend = "nui";
 
     cmdline = {
       enabled = true;
@@ -50,17 +50,24 @@
           pattern = "^:";
           icon = "";
           lang = "vim";
+          opts = {
+            border = {
+              text = {
+                top = "Cmd";
+              };
+            };
+          };
         };
         search_down = {
           kind = "search";
           pattern = "^/";
-          icon = " ";
+          icon = " ";
           lang = "regex";
         };
         search_up = {
           kind = "search";
           pattern = "^%?";
-          icon = " ";
+          icon = " ";
           lang = "regex";
         };
         shell = {
@@ -69,9 +76,16 @@
           lang = "bash";
         };
         filter = {
-          pattern = "^:%s!%s+";
-          icon = "";
+          pattern = "^:%s*!";
+          icon = "";
           lang = "bash";
+          opts = {
+            border = {
+              text = {
+                top = "Bash";
+              };
+            };
+          };
         };
         lua = {
           pattern = "^:%s*lua%s+";
@@ -80,7 +94,7 @@
         };
         help = {
           pattern = "^:%s*he?l?p?%s+";
-          icon = "";
+          icon = "󰋖";
         };
         open = {
           pattern = "^:%s*e%s+";

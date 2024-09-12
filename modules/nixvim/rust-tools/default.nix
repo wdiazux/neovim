@@ -1,5 +1,3 @@
 {
-  plugins.rust-tools = {
-    enable = true;
-  };
+  plugins.rust-tools.enable = true;
 }

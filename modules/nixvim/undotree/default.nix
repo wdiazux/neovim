@@ -15,13 +15,24 @@
   plugins.undotree = {
     enable = true;
 
-    # https://github.com/mbbill/undotree/blob/0e11ba7325efbbb3f3bebe06213afa3e7ec75131/plugin/undotree.vim#L29
     settings = {
-      windowLayout = 3;
-      focusOnToggle = true;
-      treeNodeShape = "";
-      autoOpenDiff = false;
-      windowWidth = 50;
+      CursorLine = true;
+      DiffAutoOpen = true;
+      DiffCommand = "diff";
+      DiffpanelHeight = 10;
+      HelpLine = true;
+      HighlightChangedText = true;
+      HighlightChangedWithSign = true;
+      HighlightSyntaxAdd = "DiffAdd";
+      HighlightSyntaxChange = "DiffChange";
+      HighlightSyntaxDel = "DiffDelete";
+      RelativeTimestamp = true;
+      SetFocusWhenToggle = true;
+      ShortIndicators = false;
+      TreeNodeShape = "*";
+      TreeReturnShape = "\\";
+      TreeSplitShape = "/";
+      TreeVertShape = "|";
     };
   };
 

@@ -10,12 +10,11 @@
         disabled_filetypes = {
           statusline = [
             "dashboard"
-            "NvimTree"
             "Trouble"
           ];
           winbar = [
             "dashboard"
-            "NvimTree"
+            "neo-tree"
             "Trouble"
           ];
         };
@@ -28,32 +27,20 @@
       };
 
       sections = {
-        lualine_a = [
-          {
-            __unkeyed-1 = helpers.mkRaw ''
-              function()
-                return ""
-              end
-            '';
-          }
-        ];
-        lualine_b = [
-          {
-            __unkeyed-1 = "branch";
-            icon = "";
-          }
-          "diff"
-        ];
-        lualine_c = [ "" ];
+        lualine_a = [ "mode" ];
+        lualine_b = [ "branch" ];
+        lualine_c = [ "diff" ];
         lualine_x = [
           {
             __unkeyed-1 = "diagnostics";
             update_in_insert = true;
           }
+          "encoding"
+          "filetype"
+          { __unkeyed-1 = "%l:%c"; }
         ];
         lualine_y = [ "" ];
         lualine_z = [
-          { __unkeyed-1 = "%l:%c"; }
           {
             __unkeyed-1 = "fileformat";
             icon_only = true;
@@ -62,31 +49,16 @@
       };
 
       tabline = {
-        lualine_a = [ "" ];
-        lualine_b = [ "" ];
-        lualine_c = [
+        lualine_a = [
           {
-            __unkeyed-1 = "windows";
-            symbols = {
-              modified = "";
-              readonly = "";
-              unnamed = " ";
-              newfile = " ";
-            };
+            __unkeyed-1 = "buffers";
+            symbols.alternate_file = "";
           }
         ];
-        lualine_x = [ "" ];
-        lualine_y = [ "" ];
-        lualine_z = [
-          {
-            __unkeyed-1 = "tabs";
-          }
-        ];
+        lualine_z = [ "tabs" ];
       };
 
       winbar = {
-        lualine_a = [ "" ];
-        lualine_b = [ "" ];
         lualine_c = [
           ""
           {
@@ -98,9 +70,7 @@
             '';
           }
         ];
-        lualine_x = [ "" ];
-        lualine_y = [ "" ];
-        lualine_z = [
+        lualine_x = [
           {
             __unkeyed-1 = "filetype";
             colored = false;
@@ -109,8 +79,8 @@
           {
             __unkeyed-1 = "filename";
             file_status = true;
-            shorting_target = 25;
-            path = 1;
+            shorting_target = 150;
+            path = 3;
 
             symbols = {
               modified = "";
@@ -118,7 +88,6 @@
               unnamed = " ";
               newfile = " ";
             };
-
           }
         ];
       };

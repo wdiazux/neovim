@@ -1,5 +1,3 @@
 {
-  plugins.neogit = {
-    enable = true;
-  };
+  plugins.rust-tools.enable = true;
 }
