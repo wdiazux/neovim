@@ -26,6 +26,7 @@
       # Line numbers
       relativenumber = true;
       number = true;
+      mouse = "";
       splitbelow = true;
       splitright = true;
 
