@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   extraPlugins = with pkgs.vimPlugins; [ nui-nvim ];
 
@@ -6,10 +11,11 @@
     enable = true;
 
     presets = {
+      bottom_search = false;
       command_palette = true;
+      long_message_to_split = true;
       inc_rename = true;
       lsp_doc_border = true;
-      long_message_to_split = true;
     };
 
     views = {
@@ -20,8 +26,6 @@
         text.top = "";
       };
     };
-
-    notify.enabled = true;
 
     messages = {
       view = "mini";
@@ -42,93 +46,57 @@
 
     popupmenu.backend = "nui";
 
-    cmdline = {
-      enabled = true;
-
-      format = {
-        cmdline = {
-          pattern = "^:";
-          icon = "";
-          lang = "vim";
-          opts = {
-            border = {
-              text = {
-                top = "Cmd";
-              };
+    cmdline.format = {
+      cmdline = {
+        pattern = "^:";
+        icon = "";
+        lang = "vim";
+        opts = {
+          border = {
+            text = {
+              top = "Cmd";
             };
           };
         };
-        search_down = {
-          kind = "search";
-          pattern = "^/";
-          icon = " ";
-          lang = "regex";
-        };
-        search_up = {
-          kind = "search";
-          pattern = "^%?";
-          icon = " ";
-          lang = "regex";
-        };
-        shell = {
-          pattern = "^:!";
-          icon = "";
-          lang = "bash";
-        };
-        filter = {
-          pattern = "^:%s*!";
-          icon = "";
-          lang = "bash";
-          opts = {
-            border = {
-              text = {
-                top = "Bash";
-              };
-            };
-          };
-        };
-        lua = {
-          pattern = "^:%s*lua%s+";
-          icon = "";
-          lang = "lua";
-        };
-        help = {
-          pattern = "^:%s*he?l?p?%s+";
-          icon = "󰋖";
-        };
-        open = {
-          pattern = "^:%s*e%s+";
-          icon = "";
-        };
-        input = { };
       };
-    };
-
-    format = {
+      search_down = {
+        kind = "search";
+        pattern = "^/";
+        icon = " ";
+        lang = "regex";
+      };
+      search_up = {
+        kind = "search";
+        pattern = "^%?";
+        icon = " ";
+        lang = "regex";
+      };
       filter = {
-        pattern = [
-          ":%s*%%s*s:%s*"
-          ":%s*%%s*s!%s*"
-          ":%s*%%s*s/%s*"
-          "%s*s:%s*"
-          ":%s*s!%s*"
-          ":%s*s/%s*"
-        ];
-        icon = "";
-        lang = "regex";
+        pattern = "^:%s*!";
+        icon = "";
+        lang = "bash";
+        opts = {
+          border = {
+            text = {
+              top = "Bash";
+            };
+          };
+        };
       };
-      replace = {
-        pattern = [
-          ":%s*%%s*s:%w*:%s*"
-          ":%s*%%s*s!%w*!%s*"
-          ":%s*%%s*s/%w*/%s*"
-          "%s*s:%w*:%s*"
-          ":%s*s!%w*!%s*"
-          ":%s*s/%w*/%s*"
-        ];
-        icon = "󱞪";
-        lang = "regex";
+      lua = {
+        pattern = "^:%s*lua%s+";
+        icon = "";
+        lang = "lua";
       };
+      help = {
+        pattern = "^:%s*he?l?p?%s+";
+        icon = "󰋖";
+      };
+      open = {
+        pattern = "^:%s*e%s+";
+        icon = "";
+      };
+      input = { };
     };
 
     routes = [
@@ -143,11 +111,8 @@
             { find = "%d more lines"; }
           ];
         };
-        opts = {
-          skip = true;
-        };
+        opts.skip = true;
       }
-
       {
         filter = {
           event = "msg_show";
@@ -156,11 +121,8 @@
             { find = "Error detected while processing TextChangedI Autocommands"; }
           ];
         };
-        opts = {
-          skip = true;
-        };
+        opts.skip = true;
       }
-
       {
         filter = {
           event = "msg_show";
@@ -170,11 +132,8 @@
             { find = "e944"; }
           ];
         };
-        opts = {
-          skip = true;
-        };
+        opts.skip = true;
       }
-
       {
         filter = {
           event = "notify";
@@ -184,33 +143,24 @@
             { find = " was properly removed"; }
           ];
         };
-        opts = {
-          skip = true;
-        };
+        opts.skip = true;
       }
-
       {
         filter = {
           event = "notify";
           kind = "error";
           any = [ { find = "AST is null on this unit"; } ];
         };
-        opts = {
-          skip = true;
-        };
+        opts.skip = true;
       }
-
       {
         filter = {
           event = "notify";
           kind = "warn";
           any = [ { find = "No results for "; } ];
         };
-        opts = {
-          skip = true;
-        };
+        opts.skip = true;
       }
-
       {
         view = "cmdline_popup";
         filter = {
@@ -219,11 +169,8 @@
           blocking = true;
           find = "Hop pattern";
         };
-        opts = {
-          skip = true;
-        };
+        opts.skip = true;
       }
-
       {
         view = "split";
         filter = {
@@ -231,7 +178,6 @@
           min_height = 20;
         };
       }
-
       {
         view = "split";
         filter = {
@@ -241,4 +187,16 @@
       }
     ];
   };
+
+  keymaps = lib.mkIf config.plugins.telescope.enable [
+    {
+      mode = "n";
+      key = "<leader>fn";
+      action = ":Telescope noice<CR>";
+      options = {
+        desc = "Find notifications";
+        silent = true;
+      };
+    }
+  ];
 }

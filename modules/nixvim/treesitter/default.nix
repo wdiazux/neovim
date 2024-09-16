@@ -7,33 +7,29 @@
         indent.enable = true;
         folding = true;
         nixvimInjections = true;
+
+        highlight = {
+          additional_vim_regex_highlighting = true;
+          enable = true;
+          disable = # Lua
+            ''
+              function(lang, bufnr)
+                return vim.api.nvim_buf_line_count(bufnr) > 10000
+              end
+            '';
+        };
+
+        incremental_selection = {
+          enable = true;
+          keymaps = {
+            init_selection = "gnn";
+            node_incremental = "grn";
+            scope_incremental = "grc";
+            node_decremental = "grm";
+          };
+        };
+
       };
     };
   };
-
-  keymaps = [
-    {
-      mode = "n";
-      action = "<cmd>Inspect<cr>";
-      key = "gH";
-      options = {
-        desc = "Treesitter: Show captures";
-        silent = true;
-        noremap = true;
-      };
-    }
-    {
-      action = "<cmd>InspectTree<cr>";
-      key = "<leader>tP";
-      options = {
-        desc = "Treesitter: Show tree";
-        silent = true;
-        noremap = true;
-      };
-      mode = [
-        "n"
-        "v"
-      ];
-    }
-  ];
 }

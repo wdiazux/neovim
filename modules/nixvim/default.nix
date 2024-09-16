@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, ... }:
 {
   config = {
     vimAlias = true;
@@ -6,100 +6,102 @@
 
     luaLoader.enable = true;
 
-    extraPlugins = with pkgs.vimPlugins; [ vim-bufkill ];
-
     globals = {
-      mapleader = " ";
-      maplocalleader = " ";
+      # Disable useless providers
+      loaded_ruby_provider = 0;
+      loaded_perl_provider = 0;
+      loaded_python_provider = 0;
+
+      # Custom for toggles
+      disable_diagnostics = false;
+      disable_autoformat = false;
+      spell_enabled = true;
+      colorizing_enabled = 1;
+      first_buffer_opened = false;
     };
 
     opts = {
-      breakindent = true;
-      cursorline = true;
+      updatetime = 100;
 
-      tabstop = 2;
-      shiftwidth = 2;
-
-      wrap = true;
-      linebreak = true;
-
-      number = true;
+      # Line numbers
       relativenumber = true;
-
-      signcolumn = "yes:1";
-
-      swapfile = false;
-      backup = false;
-      undofile = true;
-
-      termguicolors = true;
-
-      ignorecase = true;
-      smartcase = true;
-
+      number = true;
       splitbelow = true;
       splitright = true;
 
-      scrolloff = 4;
-
+      swapfile = false;
+      modeline = true;
+      modelines = 100;
+      undofile = true;
+      incsearch = true;
+      ignorecase = true;
+      smartcase = true;
+      cursorline = true;
+      cursorcolumn = false;
+      signcolumn = "yes";
+      colorcolumn = "100";
       laststatus = 3;
-    };
+      fileencoding = "utf-8";
+      termguicolors = true;
+      spelllang = lib.mkDefault [
+        "en_us"
+      ];
+      spell = true;
+      wrap = true;
 
-    keymaps = [
-      {
-        mode = "n";
-        key = "<leader>ch";
-        action = "<cmd>noh<cr>";
-        options = {
-          silent = true;
-          desc = "Clear highlight";
-        };
-      }
-      {
-        mode = "n";
-        key = "<leader>cs";
-        action = ''<cmd>let @/=""<cr>'';
-        options = {
-          silent = true;
-          desc = "Clear search";
-        };
-      }
-      {
-        mode = "n";
-        key = "<leader>bd";
-        action = "<cmd>:BD<cr>";
-        options = {
-          silent = true;
-          desc = "Delete buffer";
-        };
-      }
-      {
-        mode = "n";
-        key = "<leader>bn";
-        action = "<cmd>:bnext<cr>";
-        options = {
-          silent = true;
-          desc = "Next buffer";
-        };
-      }
-      {
-        mode = "n";
-        key = "<leader>bp";
-        action = "<cmd>:bprevious<cr>";
-        options = {
-          silent = true;
-          desc = "Previous buffer";
-        };
-      }
-      {
-        mode = "t";
-        key = "<C-o>";
-        action = ''<C-\><C-n>'';
-        options = {
-          silent = true;
-          desc = "Exit terminal mode";
-        };
-      }
-    ];
+      # Tab options
+      tabstop = 2;
+      shiftwidth = 2;
+      softtabstop = 0;
+      expandtab = true;
+      autoindent = true;
+
+      textwidth = 0;
+
+      # Folding
+      foldlevel = 99; # Folds with a level higher than this number will be closed
+      foldcolumn = "1";
+      foldenable = true;
+      foldlevelstart = -1;
+      fillchars = {
+        horiz = "━";
+        horizup = "┻";
+        horizdown = "┳";
+        vert = "┃";
+        vertleft = "┫";
+        vertright = "┣";
+        verthoriz = "╋";
+
+        eob = " ";
+        diff = "╱";
+
+        fold = " ";
+        foldopen = "";
+        foldclose = "";
+
+        msgsep = "‾";
+      };
+
+      breakindent = true;
+      cmdheight = 0;
+      copyindent = true;
+      history = 1000;
+      infercase = true;
+      linebreak = true;
+      preserveindent = true;
+      pumheight = 10;
+      showmode = false;
+      showtabline = 2;
+      timeoutlen = 500;
+      title = true;
+      virtualedit = "block";
+      writebackup = false;
+
+      synmaxcol = 240;
+      showmatch = true;
+      matchtime = 1;
+      startofline = true;
+      report = 9001;
+    };
   };
 }

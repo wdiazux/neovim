@@ -9,7 +9,7 @@
         buffer = "";
         calc = "";
         cmdline = "";
-        codeium = "󱜙";
+        supermaven = "󱜙";
         emoji = "󰞅";
         git = "";
         luasnip = "󰩫";
@@ -20,11 +20,6 @@
         spell = "";
         treesitter = "󰔱";
       };
-    };
-
-    extraOptions = {
-      maxwidth = 50;
-      ellipsis_char = "...";
     };
   };
 }

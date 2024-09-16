@@ -1,153 +1,212 @@
-{ config, ... }:
+{ lib, config, ... }:
+let
+  inherit (builtins) toJSON;
+in
 {
-  keymaps = [
-    {
-      key = "<leader>hs";
-      action = "<cmd>Gitsigns stage_hunk<cr>";
-      options = {
-        desc = "Stage Hunk";
-        silent = true;
+  plugins = {
+    gitsigns = {
+      enable = true;
+
+      settings = {
+        current_line_blame = true;
+        trouble = config.plugins.trouble.enable;
+
+        current_line_blame_opts = {
+          delay = 500;
+
+          ignore_blank_lines = true;
+          ignore_whitespace = true;
+          virt_text = true;
+          virt_text_pos = "eol";
+        };
+
+        signcolumn = false;
       };
-      mode = [
-        "n"
-        "v"
-      ];
-    }
+    };
+    which-key.settings.spec = lib.optionals config.plugins.gitsigns.enable [
+      {
+        __unkeyed = "<leader>gh";
+        group = "Hunks";
+        icon = " ";
+      }
+      {
+        __unkeyed = "<leader>ug";
+        group = "Git";
+      }
+    ];
+  };
+
+  keymaps = lib.mkIf config.plugins.gitsigns.enable [
+    # UI binds
     {
-      key = "<leader>hr";
-      action = "<cmd>Gitsigns reset_hunk<cr>";
-      options = {
-        desc = "Reset Hunk";
-        silent = true;
-      };
-      mode = [
-        "n"
-        "v"
-      ];
-    }
-    {
-      key = "<leader>hS";
       mode = "n";
-      action = "<cmd>Gitsigns stage_buffer<cr>";
+      key = "<leader>ugb";
+      action = ":Gitsigns toggle_current_line_blame<CR>";
       options = {
-        desc = "Stage Buffer";
+        desc = "Git Blame toggle";
         silent = true;
       };
     }
     {
-      key = "<leader>hu";
       mode = "n";
-      action = "<cmd>Gitsigns undo_stage_hunk<cr>";
+      key = "<leader>ugd";
+      action = ":Gitsigns toggle_deleted<CR>";
       options = {
-        desc = "Undo stage Hunk";
+        desc = "Deleted toggle";
         silent = true;
       };
     }
     {
-      key = "<leader>hR";
       mode = "n";
-      action = "<cmd>Gitsigns reset_buffer<cr>";
+      key = "<leader>ugl";
+      action = ":Gitsigns toggle_linehl<CR>";
       options = {
-        desc = "Reset Buffer";
+        desc = "Line Highlight toggle";
         silent = true;
       };
     }
     {
-      key = "<leader>hd";
       mode = "n";
-      action = "<cmd>Gitsigns diffthis<cr>";
+      key = "<leader>ugh";
+      action = ":Gitsigns toggle_numhl<CR>";
       options = {
-        desc = "Diff";
+        desc = "Number Highlight toggle";
         silent = true;
       };
     }
     {
-      key = "<leader>tb";
       mode = "n";
-      action = "<cmd>Gitsigns toggle_current_line_blame<cr>";
+      key = "<leader>ugw";
+      action = "<cmd>Gitsigns toggle_word_diff<CR>";
       options = {
-        desc = "Toggle Current Line Blame";
+        desc = "Word Diff toggle";
         silent = true;
       };
     }
     {
-      key = "<leader>td";
       mode = "n";
-      action = "<cmd>Gitsigns toggle_deleted<cr>";
+      key = "<leader>ugs";
+      action = "<cmd>Gitsigns toggle_signs<CR>";
       options = {
-        desc = "Toggle Deleted";
+        desc = "Signs toggle";
         silent = true;
       };
     }
     {
-      key = "<leader>hD";
       mode = "n";
-      action.__raw = ''
-        function() gitsigns.diffthis("~") end
-      '';
-      options = {
-        desc = "Diff (~)";
-        silent = true;
-      };
-    }
-    {
-      key = "<leader>hb";
-      mode = "n";
+      key = "<leader>gb";
       action.__raw = ''
         function() require("gitsigns").blame_line{full=true} end
       '';
       options = {
-        desc = "Blame Line";
+        desc = "Git Blame toggle";
         silent = true;
       };
     }
+    # Hunk binds
     {
-      key = "[c";
       mode = "n";
+      key = "<leader>ghp";
       action.__raw = ''
         function()
-          if vim.wo.diff then return '[c' end
+          if vim.wo.diff then return ${toJSON "<leader>gp"} end
+
           vim.schedule(function() require("gitsigns").prev_hunk() end)
+
           return '<Ignore>'
         end
       '';
       options = {
-        desc = "Previous Hunk";
+        desc = "Previous hunk";
         silent = true;
       };
     }
     {
-      key = "]c";
       mode = "n";
+      key = "<leader>ghn";
       action.__raw = ''
         function()
-          if vim.wo.diff then return ']c' end
+          if vim.wo.diff then return ${toJSON "<leader>gn"} end
+
           vim.schedule(function() require("gitsigns").next_hunk() end)
+
           return '<Ignore>'
         end
       '';
       options = {
-        desc = "Next Hunk";
+        desc = "Next hunk";
+        silent = true;
+      };
+    }
+    {
+      mode = [
+        "n"
+        "v"
+      ];
+      key = "<leader>ghs";
+      action = "<cmd>Gitsigns stage_hunk<CR>";
+      options = {
+        desc = "Stage hunk";
+        silent = true;
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>ghu";
+      action = "<cmd>Gitsigns undo_stage_hunk<CR>";
+      options = {
+        desc = "Undo stage hunk";
+        silent = true;
+      };
+    }
+    {
+      mode = [
+        "n"
+        "v"
+      ];
+      key = "<leader>ghr";
+      action = "<cmd>Gitsigns reset_hunk<CR>";
+      options = {
+        desc = "Reset hunk";
+        silent = true;
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>ghP";
+      action = "<cmd>Gitsigns preview_hunk<CR>";
+      options = {
+        desc = "Preview hunk";
+        silent = true;
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>gh<C-p>";
+      action = "<cmd>Gitsigns preview_hunk_inline<CR>";
+      options = {
+        desc = "Preview hunk inline";
+        silent = true;
+      };
+    }
+    # Buffer binds
+    {
+      mode = "n";
+      key = "<leader>gS";
+      action = "<cmd>Gitsigns stage_buffer<CR>";
+      options = {
+        desc = "Stage buffer";
+        silent = true;
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>gR";
+      action = "<cmd>Gitsigns reset_buffer<CR>";
+      options = {
+        desc = "Reset buffer";
         silent = true;
       };
     }
   ];
-
-  plugins.gitsigns = {
-    enable = true;
-
-    settings = {
-      current_line_blame = true;
-      trouble = config.plugins.trouble.enable;
-
-      signs = {
-        add.text = "+";
-        change.text = "~";
-        delete.text = "-";
-        topdelete.text = "-";
-        changedelete.text = "~";
-        untracked.text = "┆";
-      };
-    };
-  };
 }

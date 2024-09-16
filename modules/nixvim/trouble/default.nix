@@ -1,36 +1,107 @@
+{ config, lib, ... }:
 {
-  plugins.trouble = {
-    enable = true;
+  plugins = {
+    trouble = {
+      enable = true;
 
-    settings = {
-      auto_close = true;
-      auto_open = false;
-      auto_fold = false;
-      auto_preview = false;
-      position = "right";
-      use_diagnostic_signs = true;
+      settings = {
+        modes = {
+          preview_split = {
+            mode = "diagnostics";
+            preview = {
+              type = "split";
+              relative = "win";
+              position = "right";
+              size = 0.5;
+            };
+          };
 
-      action_keys = {
-        hover = "<leader>gh";
+          preview_float = {
+            mode = "diagnostics";
+            preview = {
+              type = "float";
+              relative = "editor";
+              border = "rounded";
+              title = "Preview";
+              title_pos = "center";
+              position = [
+                0
+                (-2)
+              ];
+              size = {
+                width = 0.3;
+                height = 0.3;
+              };
+              zindex = 200;
+            };
+          };
+        };
       };
     };
+
+    which-key.settings.spec = lib.optionals config.plugins.trouble.enable [
+      {
+        __unkeyed = "<leader>x";
+        mode = "n";
+        icon = "";
+        group = "Trouble";
+      }
+    ];
   };
 
-  keymaps = [
+  keymaps = lib.mkIf config.plugins.trouble.enable [
     {
       mode = "n";
-      action = "<cmd>Trouble diagnostics toggle<cr>";
-      key = "<leader>tt";
+      key = "<leader>xx";
+      action = "<cmd>Trouble preview_split toggle<cr>";
       options = {
-        desc = "Toggle trouble";
+        desc = "Diagnostics toggle";
+        silent = true;
       };
     }
     {
       mode = "n";
-      action = "<cmd>Trouble todo toggle<cr>";
-      key = "<leader>tn";
+      key = "<leader>xX";
+      action = "<cmd>Trouble preview_split toggle filter.buf=0<cr>";
       options = {
-        desc = "Toggle notes";
+        desc = "Buffer Diagnostics toggle";
+        silent = true;
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>us";
+      action = "<cmd>Trouble symbols toggle focus=false<cr>";
+      options = {
+        desc = "Symbols toggle";
+        silent = true;
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>xl";
+      action = "<cmd>Trouble lsp toggle focus=false win.position=right<cr>";
+      options = {
+        desc = "LSP Definitions / references / ... toggle";
+        silent = true;
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>xL";
+      action = "<cmd>Trouble loclist toggle<cr>";
+      options = {
+        desc = "Location List toggle";
+        silent = true;
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>xQ";
+      action = "<cmd>Trouble qflist toggle<cr>";
+      options = {
+        desc = "Quickfix List toggle";
+        silent = true;
       };
     }
   ];

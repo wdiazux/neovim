@@ -1,13 +1,13 @@
+{ lib, config, ... }:
 {
-  keymaps = [
+  keymaps = lib.mkIf config.plugins.neo-tree.enable [
     {
       mode = "n";
-      key = "<C-n>";
+      key = "<leader>E";
       action = ":Neotree action=focus reveal toggle<CR>";
       options = {
-        desc = "neo-tree: Toggle";
+        desc = "Explorer toggle";
         silent = true;
-        noremap = true;
       };
     }
   ];

@@ -1,4 +1,9 @@
-{ helpers, ... }:
+{
+  lib,
+  config,
+  helpers,
+  ...
+}:
 {
   plugins.lualine = {
     enable = true;
@@ -9,19 +14,17 @@
 
         disabled_filetypes = {
           statusline = [
-            "dashboard"
             "Trouble"
           ];
           winbar = [
-            "dashboard"
             "neo-tree"
+            "dap-repl"
             "Trouble"
           ];
         };
 
         ignore_focus = [
-          "dashboard"
-          "NvimTree"
+          "neo-tree"
           "Trouble"
         ];
       };
@@ -31,15 +34,11 @@
         lualine_b = [ "branch" ];
         lualine_c = [ "diff" ];
         lualine_x = [
-          {
-            __unkeyed-1 = "diagnostics";
-            update_in_insert = true;
-          }
-          "encoding"
-          "filetype"
+          "diagnostics"
           { __unkeyed-1 = "%l:%c"; }
+          "encoding"
         ];
-        lualine_y = [ "" ];
+        lualine_y = [ "filetype" ];
         lualine_z = [
           {
             __unkeyed-1 = "fileformat";
@@ -48,7 +47,7 @@
         ];
       };
 
-      tabline = {
+      tabline = lib.mkIf (!config.plugins.bufferline.enable) {
         lualine_a = [
           {
             __unkeyed-1 = "buffers";
@@ -79,8 +78,8 @@
           {
             __unkeyed-1 = "filename";
             file_status = true;
-            shorting_target = 150;
             path = 3;
+            shorting_target = 150;
 
             symbols = {
               modified = "";
@@ -116,7 +115,6 @@
               unnamed = " ";
               newfile = " ";
             };
-
           }
         ];
       };

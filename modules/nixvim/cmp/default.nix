@@ -1,4 +1,3 @@
-{ helpers, ... }:
 let
   get_bufnrs.__raw = ''
     function()
@@ -18,72 +17,40 @@ in
   opts.completeopt = [
     "menu"
     "menuone"
+    "noselect"
   ];
 
   plugins = {
     luasnip.enable = true;
-    cmp-emoji.enable = true;
-    cmp-nvim-lsp.enable = true;
-    cmp-buffer.enable = true;
-    cmp-path.enable = true;
-    cmp_luasnip.enable = true;
-    cmp-cmdline.enable = true;
+    friendly-snippets.enable = true;
 
     cmp = {
       enable = true;
       autoEnableSources = true;
 
-      cmdline =
-        let
-          search = {
-            mapping = helpers.mkRaw "cmp.mapping.preset.cmdline()";
-            sources = [ { name = "buffer"; } ];
-          };
-        in
-        {
-          "/" = search;
-          "?" = search;
-          ":" = {
-            mapping = helpers.mkRaw "cmp.mapping.preset.cmdline()";
-            sources = [ { name = "cmdline"; } ];
-          };
-        };
-
       settings = {
-        experimental.ghost_text = true;
-
         mapping = {
-          "<C-Space>" = "cmp.mapping.complete()";
-          "<C-j>" = "cmp.mapping.scroll_docs(4)";
-          "<C-k>" = "cmp.mapping.scroll_docs(-4)";
-          "<C-l>" = "cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })";
-          "<C-n>" = helpers.mkRaw ''
-            function(fallback)
-              local luasnip = require("luasnip")
-              if cmp.visible() then
-                cmp.select_next_item()
-              elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-              else
-                fallback()
-              end
-            end
-          '';
-          "<C-p>" = helpers.mkRaw ''
-            function(fallback)
-              local luasnip = require("luasnip")
-              if cmp.visible() then
-                cmp.select_prev_item()
-              elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-              else
-                fallback()
-              end
-            end
-          '';
+          "<C-d>" = # Lua
+            "cmp.mapping.scroll_docs(-4)";
+          "<C-f>" = # Lua
+            "cmp.mapping.scroll_docs(4)";
+          "<C-Space>" = # Lua
+            "cmp.mapping.complete()";
+          "<C-e>" = # Lua
+            "cmp.mapping.close()";
+          "<Tab>" = # Lua
+            "cmp.mapping(cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Select}), {'i', 's'})";
+          "<S-Tab>" = # Lua
+            "cmp.mapping(cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Select}), {'i', 's'})";
+          "<CR>" = # Lua
+            "cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace })";
         };
 
-        snippet.expand = "luasnip";
+        preselect = # Lua
+          "cmp.PreselectMode.None";
+
+        snippet.expand = # Lua
+          "function(args) require('luasnip').lsp_expand(args.body) end";
 
         sources = [
           {
@@ -119,6 +86,10 @@ in
             priority = 750;
           }
           {
+            name = "supermaven";
+            priority = 300;
+          }
+          {
             name = "buffer";
             priority = 500;
             option = {
@@ -142,19 +113,32 @@ in
             priority = 250;
           }
           {
+            name = "npm";
+            priority = 250;
+          }
+          {
             name = "tmux";
             priority = 250;
+          }
+          {
+            name = "zsh";
+            priority = 250;
+          }
+          {
+            name = "calc";
+            priority = 150;
           }
           {
             name = "emoji";
             priority = 100;
           }
         ];
+
+        window = {
+          completion.__raw = ''cmp.config.window.bordered()'';
+          documentation.__raw = ''cmp.config.window.bordered()'';
+        };
       };
     };
   };
-  extraConfigLua = ''
-    luasnip = require("luasnip")
-    local cmp = require'cmp'
-  '';
 }

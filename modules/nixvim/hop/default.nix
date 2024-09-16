@@ -1,77 +1,53 @@
+{ config, lib, ... }:
 {
   plugins.hop.enable = true;
 
-  keymaps = [
+  keymaps = lib.optionals config.plugins.hop.enable [
     {
-      key = "<leader><leader>a";
-      action = "<cmd>HopAnywhere<cr>";
-      options = {
-        desc = "Hop Anywhere";
-      };
+      key = "f";
+      action.__raw = ''
+        function()
+          require'hop'.hint_char1({
+            direction = require'hop.hint'.HintDirection.AFTER_CURSOR,
+          })
+        end
+      '';
+      options.remap = true;
     }
     {
-      key = "<leader><leader>c";
-      action = "<cmd>HopChar1<cr>";
-      options = {
-        desc = "Hop Char";
-      };
+      key = "F";
+      action.__raw = ''
+        function()
+          require'hop'.hint_char1({
+            direction = require'hop.hint'.HintDirection.BEFORE_CURSOR,
+          })
+        end
+      '';
+      options.remap = true;
     }
     {
-      key = "<leader><leader>C";
-      action = "<cmd>HopChar2<cr>";
-      options = {
-        desc = "Hop Chars";
-      };
+      key = "t";
+      action.__raw = ''
+        function()
+          require'hop'.hint_char1({
+            direction = require'hop.hint'.HintDirection.AFTER_CURSOR,
+            hint_offset = -1
+          })
+        end
+      '';
+      options.remap = true;
     }
     {
-      key = "<leader><leader>l";
-      action = "<cmd>HopLineStart<cr>";
-      options = {
-        desc = "Hop To Line Start";
-      };
-    }
-    {
-      key = "<leader><leader>L";
-      action = "<cmd>HopLine<cr>";
-      options = {
-        desc = "Hop To Line";
-      };
-    }
-    {
-      key = "<leader><leader>v";
-      action = "<cmd>HopVertical<cr>";
-      options = {
-        desc = "Hop Vertical";
-      };
-    }
-    {
-      key = "<leader><leader>p";
-      action = "<cmd>HopPattern<cr>";
-      options = {
-        desc = "Hop To Pattern";
-        silent = true;
-      };
-    }
-    {
-      key = "<leader><leader>b";
-      action = "<cmd>HopWordBC<cr>";
-      options = {
-        desc = "Hop To Previous Word";
-      };
-    }
-    {
-      key = "<leader><leader>w";
-      action = "<cmd>HopWordAC<cr>";
-      options = {
-        desc = "Hop To Next Word";
-      };
-    }
-    {
-      key = "<leader><leader>W";
-      action = "<cmd>HopWord<cr>";
-      options = {
-        desc = "Hop To Word";
-      };
+      key = "T";
+      action.__raw = ''
+        function()
+          require'hop'.hint_char1({
+            direction = require'hop.hint'.HintDirection.BEFORE_CURSOR,
+            hint_offset = 1
+          })
+        end
+      '';
+      options.remap = true;
     }
   ];
 }
