@@ -209,11 +209,6 @@ in
           netcoredb-config
         ];
 
-        fsharp = [
-          coreclr-config
-          netcoredb-config
-        ];
-
         rust =
           [ lldb-config ]
           ++ lib.optionals pkgs.stdenv.isLinux [

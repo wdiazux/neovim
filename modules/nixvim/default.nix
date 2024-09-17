@@ -26,7 +26,8 @@
       # Line numbers
       relativenumber = true;
       number = true;
-      mouse = "";
+      mouse = "a";
+      mousemodel = "extend";
       splitbelow = true;
       splitright = true;
 

@@ -1,6 +1,5 @@
 { lib, config, ... }:
 {
-
   plugins.spectre.enable = true;
 
   keymaps = lib.mkIf config.plugins.spectre.enable [

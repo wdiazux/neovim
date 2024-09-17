@@ -6,7 +6,7 @@
       pattern = [
         "help"
         "alpha"
-        "Starter"
+        "ministarter"
         "neo-tree"
         "Trouble"
         "trouble"

@@ -1,4 +1,3 @@
-{ ... }:
 {
   theme.catppuccin-mocha = {
     color0 = "#1E1E2E";

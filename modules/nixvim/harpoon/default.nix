@@ -3,7 +3,6 @@ let
   cfg = config.plugins.harpoon;
 in
 {
-
   plugins = {
     harpoon = {
       enable = true;

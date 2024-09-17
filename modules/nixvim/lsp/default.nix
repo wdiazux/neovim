@@ -196,9 +196,7 @@
           ];
         };
 
-        harper-ls = {
-          enable = true;
-        };
+        harper-ls.enable = true;
 
         helm-ls = {
           enable = true;
@@ -311,7 +309,7 @@
           filetypes = [ "toml" ];
         };
 
-        tsserver = {
+        ts-ls = {
           enable = true;
           filetypes = [
             "javascript"
