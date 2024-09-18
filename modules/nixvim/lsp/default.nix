@@ -52,14 +52,9 @@
     lsp-lines.enable = true;
     lsp-format.enable = lib.mkIf (!config.plugins.conform-nvim.enable) true;
 
-    nvim-jdtls = {
-      enable = true;
-      configuration = "$XDG_CACHE_HOME/jdtls/config";
-      data.__raw = "vim.fn.stdpath 'cache' .. '/jdtls/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t')";
-    };
-
     lsp = {
       enable = true;
+      inlayHints = true;
 
       keymaps = {
         silent = true;
@@ -121,6 +116,8 @@
       };
 
       servers = {
+        astro.enable = true;
+
         bashls = {
           enable = true;
 
@@ -206,16 +203,6 @@
         html = {
           enable = true;
           filetypes = [ "html" ];
-        };
-
-        java-language-server = {
-          enable = !config.plugins.nvim-jdtls.enable;
-          filetypes = [ "java" ];
-        };
-
-        jdt-language-server = {
-          inherit (config.plugins.nvim-jdtls) enable;
-          filetypes = [ "java" ];
         };
 
         jsonls = {
