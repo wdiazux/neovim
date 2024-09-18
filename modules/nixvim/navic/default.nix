@@ -7,7 +7,7 @@
       preference = [
         "nixd"
         "clangd"
-        "tsserver"
+        "ts-ls"
       ];
     };
   };

@@ -76,11 +76,7 @@
         icon = "";
         lang = "bash";
         opts = {
-          border = {
-            text = {
-              top = "Bash";
-            };
-          };
+          border.text.top = "Bash";
         };
       };
       lua = {

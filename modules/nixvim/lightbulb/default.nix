@@ -7,12 +7,8 @@
         enabled = true;
         updatetime = 200;
       };
-      line = {
-        enabled = true;
-      };
-      number = {
-        enabled = true;
-      };
+      line.enabled = true;
+      number.enabled = true;
       sign = {
         enabled = true;
         text = " 󰌶";

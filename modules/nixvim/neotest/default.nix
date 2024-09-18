@@ -17,13 +17,7 @@
         dotnet = {
           enable = true;
 
-          settings = {
-            dap = {
-              args = {
-                justMyCode = false;
-              };
-            };
-          };
+          settings.dap.args.justMyCode = false;
         };
         go.enable = true;
         java.enable = true;
