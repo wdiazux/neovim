@@ -155,11 +155,6 @@
           ];
         };
 
-        csharp-ls = {
-          enable = true;
-          filetypes = [ "cs" ];
-        };
-
         cssls = {
           enable = true;
           filetypes = [

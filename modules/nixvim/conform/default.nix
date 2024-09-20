@@ -93,7 +93,6 @@
         c = [ "clang_format" ];
         cmake = [ "cmake-format" ];
         cpp = [ "clang_format" ];
-        cs = [ "csharpier" ];
         css = [ "stylelint" ];
         javascript = {
           __unkeyed-1 = "prettierd";
@@ -141,7 +140,6 @@
         black.command = lib.getExe pkgs.black;
         bicep.command = lib.getExe pkgs.bicep;
         cmake-format.command = lib.getExe pkgs.cmake-format;
-        csharpier.command = lib.getExe pkgs.csharpier;
         deno_fmt.command = lib.getExe pkgs.deno;
         isort.command = lib.getExe pkgs.isort;
         fantomas.command = lib.getExe pkgs.fantomas;
