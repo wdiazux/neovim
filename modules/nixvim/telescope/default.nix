@@ -111,43 +111,21 @@
   plugins.telescope = {
     enable = true;
 
-    settings = {
-      defaults = {
-        file_ignore_patterns = [
-          "^.git/"
-          "^.idea/"
-          "^.mypy_cache/"
-          "^__pycache__/"
-          "^output/"
-          "^data/"
-          "%.ipynb"
-        ];
-        set_env.COLORTERM = "truecolor";
-      };
-
-      pickers.colorscheme.enable_preview = true;
-    };
+    settings.defaults.file_ignore_patterns = [
+      "^.git/"
+      "^.idea/"
+      "^.mypy_cache/"
+      "^__pycache__/"
+      "%.ipynb"
+    ];
 
     extensions = {
+      fzf-native.enable = true;
+      ui-select.enable = true;
+
       file-browser = {
         enable = true;
-        settings = {
-          hidden = true;
-        };
-      };
-
-      frecency = {
-        enable = true;
-        settings = {
-          auto_validate = false;
-        };
-      };
-
-      ui-select = {
-        enable = true;
-        settings = {
-          __unkeyed.__raw = ''require("telescope.themes").get_dropdown{}'';
-        };
+        settings.hidden = true;
       };
 
       undo = {
@@ -161,8 +139,6 @@
         };
       };
     };
-
-    highlightTheme = "Catppuccin Mocha";
 
     keymaps = {
       "<leader>f'" = {
