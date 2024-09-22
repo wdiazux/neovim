@@ -8,7 +8,6 @@
       bracketed = { };
       git = { };
       icons = { };
-      pairs = { };
     };
   };
 }

@@ -13,7 +13,6 @@
         emoji = "󰞅";
         git = "";
         luasnip = "󰩫";
-        neorg = "";
         nvim_lsp = "";
         nvim_lua = "";
         path = "";

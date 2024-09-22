@@ -8,8 +8,8 @@
       nixvimInjections = true;
 
       highlight = {
-        additional_vim_regex_highlighting = true;
         enable = true;
+        additional_vim_regex_highlighting = true;
         disable = # Lua
           ''
             function(lang, bufnr)

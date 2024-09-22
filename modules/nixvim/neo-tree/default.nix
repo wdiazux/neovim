@@ -35,6 +35,7 @@
         leaveDirsOpen = true;
       };
 
+      bindToCwd = false;
       useLibuvFileWatcher.__raw = ''vim.fn.has "win32" ~= 1'';
     };
 

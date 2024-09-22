@@ -12,10 +12,7 @@
             "TextChanged"
           ];
         };
-        buffers = {
-          set_filetype = true;
-          # write_to_disk = true;
-        };
+        buffers.set_filetype = true;
       };
     };
   };
