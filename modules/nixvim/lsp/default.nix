@@ -56,7 +56,6 @@
   ];
 
   plugins = {
-    lsp-lines.enable = true;
     lsp-format.enable = lib.mkIf (!config.plugins.conform-nvim.enable) true;
 
     lsp = {
@@ -140,7 +139,6 @@
           initOptions.compilationDatabaseDirectory = "build";
         };
 
-        # TODO: see what further configuration might be needed
         cmake = {
           enable = true;
           filetypes = [ "cmake" ];
