@@ -40,15 +40,22 @@
     '';
 
   autoCmd = [
-    (lib.mkIf config.plugins.lsp.servers.helm-ls.enable {
-      event = "FileType";
-      pattern = "helm";
-      command = "LspRestart";
-    })
+    {
+      event = [
+        "BufRead"
+        "BufNewFile"
+      ];
+      pattern = [
+        "*.txt"
+        "*.md"
+        "*.tex"
+        "LICENSE"
+      ];
+      command = "setlocal spell";
+    }
   ];
 
   plugins = {
-    helm.enable = true;
     lsp-lines.enable = true;
     lsp-format.enable = lib.mkIf (!config.plugins.conform-nvim.enable) true;
 
@@ -58,8 +65,8 @@
 
       keymaps = {
         silent = true;
+
         diagnostic = {
-          # Navigate in diagnostics
           "<leader>l[" = "goto_prev";
           "<leader>l]" = "goto_next";
           # TODO: fix theme of float
@@ -81,25 +88,19 @@
             '';
             mode = "v";
             key = "<leader>lf";
-            options = {
-              desc = "Format selection";
-            };
+            options.desc = "Format selection";
           }
           {
             action.__raw = "peek_definition";
             mode = "n";
             key = "<leader>lp";
-            options = {
-              desc = "Preview definition";
-            };
+            options.desc = "Preview definition";
           }
           {
             action.__raw = "peek_type_definition";
             mode = "n";
             key = "<leader>lP";
-            options = {
-              desc = "Preview type definition";
-            };
+            options.desc = "Preview type definition";
           }
         ];
 
@@ -224,6 +225,7 @@
           settings = {
             nixpkgs.expr = "import <nixpkgs> {}";
             formatting.command = [ "nixfmt" ];
+            diagnostic.suppress = [ "sema-extra-with" ];
             options = {
               nixos.expr = ''
                 let configs = (builtins.getFlake ("git+file://" + builtins.toString ./.)).nixosConfigurations; in (builtins.head (builtins.attrValues configs)).options

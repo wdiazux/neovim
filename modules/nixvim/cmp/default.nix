@@ -104,18 +104,6 @@ in
             priority = 300;
           }
           {
-            name = "git";
-            priority = 250;
-          }
-          {
-            name = "npm";
-            priority = 250;
-          }
-          {
-            name = "tmux";
-            priority = 250;
-          }
-          {
             name = "zsh";
             priority = 250;
           }
