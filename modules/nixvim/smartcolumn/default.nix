@@ -1,31 +1,40 @@
-{ pkgs, ... }:
 {
-  extraPlugins = with pkgs.vimPlugins; [ smartcolumn-nvim ];
+  plugins.smartcolumn = {
+    enable = true;
+    settings = {
+      colorcolumn = "80";
 
-  extraConfigLuaPre = # Lua
-    ''
-      require("smartcolumn").setup({
-        colorcolumn = "80",
+      disabled_filetypes = [
+        "checkhealth"
+        "help"
+        "lspinfo"
+        "markdown"
+        "neo-tree"
+        "ministarter"
+        "noice"
+        "text"
+      ];
 
-        disabled_filetypes = {
-          "help",
-          "text",
-          "markdown",
-          "neo-tree",
-          "ministarter",
-          "checkhealth",
-          "lspinfo",
-          "noice",
-        },
+      custom_colorcolumn = {
+        go = [
+          "100"
+          "130"
+        ];
+        java = [
+          "100"
+          "140"
+        ];
+        nix = [
+          "100"
+          "120"
+        ];
+        rust = [
+          "80"
+          "100"
+        ];
+      };
 
-        custom_colorcolumn = {
-          go = {"100", "130"},
-          java = { "100", "140" },
-          nix = { "100", "120" },
-          rust = { "80", "100" },
-        },
-
-        scope = "file",
-      })
-    '';
+      scope = "file";
+    };
+  };
 }
