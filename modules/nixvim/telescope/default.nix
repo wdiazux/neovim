@@ -88,15 +88,6 @@
         silent = true;
       };
     })
-    (lib.mkIf config.plugins.telescope.extensions.frecency.enable {
-      mode = "n";
-      key = "<leader>fO";
-      action = ":Telescope frecency<CR>";
-      options = {
-        desc = "Find Frequent Files";
-        silent = true;
-      };
-    })
     (lib.mkIf config.plugins.telescope.extensions.undo.enable {
       mode = "n";
       key = "<leader>fu";
@@ -104,6 +95,14 @@
       options = {
         desc = "List undo history";
         silent = true;
+      };
+    })
+    (lib.mkIf config.plugins.telescope.extensions.live-grep-args.enable {
+      mode = "n";
+      key = "<leader>fw";
+      action = "<cmd>Telescope live_grep_args<CR>";
+      options = {
+        desc = "Live grep (args)";
       };
     })
   ];
@@ -122,6 +121,7 @@
     extensions = {
       fzf-native.enable = true;
       ui-select.enable = true;
+      live-grep-args.enable = true;
 
       file-browser = {
         enable = true;
@@ -184,10 +184,6 @@
       "<leader>fk" = {
         action = "keymaps";
         options.desc = "View keymaps";
-      };
-      "<leader>fm" = {
-        action = "man_pages";
-        options.desc = "View man pages";
       };
       "<leader>fo" = {
         action = "oldfiles";
