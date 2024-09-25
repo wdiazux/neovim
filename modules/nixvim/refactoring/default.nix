@@ -1,9 +1,10 @@
 { config, lib, ... }:
 {
   plugins = {
-    refactoring.enable = true;
-
-    telescope.enabledExtensions = lib.mkIf config.plugins.telescope.enable [ "refactoring" ];
+    refactoring = {
+      enable = true;
+      enableTelescope = true;
+    };
 
     which-key.settings.spec = lib.optionals config.plugins.refactoring.enable [
       {
@@ -81,7 +82,7 @@
         };
       }
     ]
-    ++ lib.optionals config.plugins.telescope.enable [
+    ++ lib.optionals (config.plugins.telescope.enable && config.plugins.refactoring.enable) [
       {
         mode = "n";
         key = "<leader>fR";
