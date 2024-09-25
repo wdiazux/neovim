@@ -82,28 +82,20 @@
     (lib.mkIf config.plugins.telescope.extensions.file-browser.enable {
       mode = "n";
       key = "<leader>fe";
-      action = ":Telescope file_browser<CR>";
-      options = {
-        desc = "File Explorer";
-        silent = true;
-      };
+      action = "<cmd>Telescope file_browser<CR>";
+      options.desc = "File Explorer";
     })
     (lib.mkIf config.plugins.telescope.extensions.undo.enable {
       mode = "n";
       key = "<leader>fu";
-      action = ":Telescope undo<CR>";
-      options = {
-        desc = "List undo history";
-        silent = true;
-      };
+      action = "<cmd>Telescope undo<CR>";
+      options.desc = "List undo history";
     })
     (lib.mkIf config.plugins.telescope.extensions.live-grep-args.enable {
       mode = "n";
       key = "<leader>fw";
       action = "<cmd>Telescope live_grep_args<CR>";
-      options = {
-        desc = "Live grep (args)";
-      };
+      options.desc = "Live grep (args)";
     })
   ];
 
