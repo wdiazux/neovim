@@ -4,7 +4,7 @@
     settings = {
       buf_ignore = [ ];
 
-      mode = [
+      modes = [
         "n"
         "x"
         "i"
