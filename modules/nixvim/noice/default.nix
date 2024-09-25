@@ -184,7 +184,7 @@
     ];
   };
 
-  keymaps = lib.mkIf config.plugins.telescope.enable [
+  keymaps = lib.mkIf (config.plugins.telescope.enable && config.plugins.noice.enable) [
     {
       mode = "n";
       key = "<leader>fn";
