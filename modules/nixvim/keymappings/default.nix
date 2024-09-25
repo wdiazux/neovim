@@ -1,9 +1,8 @@
 { helpers, lib, ... }:
 {
-  extraConfigLuaPre = # Lua
-    ''
-      function bool2str(bool) return bool and "on" or "off" end
-    '';
+  extraConfigLuaPre = ''
+    function bool2str(bool) return bool and "on" or "off" end
+  '';
 
   globals = {
     mapleader = " ";
@@ -75,10 +74,10 @@
             };
 
             # navigate quickfix list
-            "<C-n>" = {
+            "<C-[>" = {
               action = "<cmd>cnext<CR>";
             };
-            "<C-p>" = {
+            "<C-]>" = {
               action = "<cmd>cprev<CR>";
             };
 
@@ -132,7 +131,7 @@
                 desc = "Quit";
               };
             };
-            "<C-N>" = {
+            "<C-n>" = {
               action = "<Cmd>enew<CR>";
               options = {
                 desc = "New file";
@@ -377,4 +376,19 @@
           };
     in
     helpers.keymaps.mkKeymaps { options.silent = true; } (normal ++ visual ++ insert);
+
+  plugins.which-key.settings.spec = [
+    {
+      __unkeyed = "<leader>w";
+      icon = "";
+    }
+    {
+      __unkeyed = "<leader>W";
+      icon = "󰽃";
+    }
+    {
+      __unkeyed = "<leader>/";
+      icon = "";
+    }
+  ];
 }
