@@ -3,10 +3,7 @@
   plugins = {
     mini = {
       enable = true;
-
-      modules = {
-        bufremove = { };
-      };
+      modules.bufremove = { };
     };
   };
 

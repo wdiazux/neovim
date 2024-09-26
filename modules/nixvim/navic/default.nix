@@ -5,7 +5,6 @@
     settings.lsp = {
       autoAttach = true;
       preference = [
-        "nixd"
         "clangd"
         "ts-ls"
       ];

@@ -17,12 +17,12 @@ in
   opts.completeopt = [
     "menu"
     "menuone"
+    "noinsert"
     "noselect"
   ];
 
   plugins = {
     luasnip.enable = true;
-    friendly-snippets.enable = true;
 
     cmp = {
       enable = true;
@@ -31,6 +31,7 @@ in
       settings = {
         preselect = "cmp.PreselectMode.None";
         snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+        experimental.ghost_text.hl_group = "CmpGhostText";
 
         window = {
           completion.__raw = ''cmp.config.window.bordered()'';
@@ -102,18 +103,6 @@ in
           {
             name = "spell";
             priority = 300;
-          }
-          {
-            name = "zsh";
-            priority = 250;
-          }
-          {
-            name = "calc";
-            priority = 150;
-          }
-          {
-            name = "emoji";
-            priority = 100;
           }
         ];
       };

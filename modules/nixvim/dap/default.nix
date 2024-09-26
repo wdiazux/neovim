@@ -92,8 +92,6 @@ in
       pkgs.bashdb
     ];
 
-  #   extraPlugins = with pkgs.vimPlugins; [ nvim-gdb ];
-
   globals = {
     dotnet_build_project.__raw = ''
       function()
@@ -258,7 +256,6 @@ in
         __unkeyed = "<leader>d";
         mode = "n";
         desc = "Debug";
-        # icon = " ";
       }
     ];
   };
