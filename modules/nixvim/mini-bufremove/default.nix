@@ -14,19 +14,13 @@
           mode = "n";
           key = "<leader>c";
           action.__raw = ''require("mini.bufremove").delete'';
-          options = {
-            desc = "Close buffer";
-            silent = true;
-          };
+          options.desc = "Close buffer";
         }
         {
           mode = "n";
           key = "<C-w>";
           action.__raw = ''require("mini.bufremove").delete'';
-          options = {
-            desc = "Close buffer";
-            silent = true;
-          };
+          options.desc = "Close buffer";
         }
         {
           mode = "n";

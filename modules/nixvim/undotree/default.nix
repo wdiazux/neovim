@@ -28,11 +28,8 @@
     {
       mode = "n";
       key = "<leader>uu";
-      action = ":UndotreeToggle<CR>";
-      options = {
-        desc = "Undotree toggle";
-        silent = true;
-      };
+      action = "<cmd>UndotreeToggle<CR>";
+      options.desc = "Undotree toggle";
     }
   ];
 }

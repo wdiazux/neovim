@@ -269,10 +269,7 @@ in
           require("dap").toggle_breakpoint()
         end
       '';
-      options = {
-        desc = "Breakpoint toggle";
-        silent = true;
-      };
+      options.desc = "Breakpoint toggle";
     }
     {
       mode = "n";
@@ -282,10 +279,7 @@ in
           require("dap").continue()
         end
       '';
-      options = {
-        desc = "Continue Debugging (Start)";
-        silent = true;
-      };
+      options.desc = "Continue Debugging (Start)";
     }
     {
       mode = "v";
@@ -293,10 +287,7 @@ in
       action.__raw = ''
         function() require("dapui").eval() end
       '';
-      options = {
-        desc = "Evaluate Input";
-        silent = true;
-      };
+      options.desc = "Evaluate Input";
     }
     {
       mode = "n";
@@ -308,10 +299,7 @@ in
           end)
         end
       '';
-      options = {
-        desc = "Evaluate Input";
-        silent = true;
-      };
+      options.desc = "Evaluate Input";
     }
     {
       mode = "n";
@@ -319,10 +307,7 @@ in
       action.__raw = ''
         function() require("dap.ui.widgets").hover() end
       '';
-      options = {
-        desc = "Debugger Hover";
-        silent = true;
-      };
+      options.desc = "Debugger Hover";
     }
     {
       mode = "n";
@@ -332,10 +317,7 @@ in
           require("dap").step_out()
         end
       '';
-      options = {
-        desc = "Step Out";
-        silent = true;
-      };
+      options.desc = "Step Out";
     }
     {
       mode = "n";
@@ -345,10 +327,7 @@ in
           require("dap").step_over()
         end
       '';
-      options = {
-        desc = "Step Over";
-        silent = true;
-      };
+      options.desc = "Step Over";
     }
     {
       mode = "n";
@@ -358,10 +337,7 @@ in
           require("dap").step_into()
         end
       '';
-      options = {
-        desc = "Step Into";
-        silent = true;
-      };
+      options.desc = "Step Into";
     }
     {
       mode = "n";
@@ -369,10 +345,7 @@ in
       action.__raw = ''
         function() require("dap").terminate() end
       '';
-      options = {
-        desc = "Terminate Debugging";
-        silent = true;
-      };
+      options.desc = "Terminate Debugging";
     }
     {
       mode = "n";
@@ -383,10 +356,7 @@ in
           require("dapui").toggle()
         end
       '';
-      options = {
-        desc = "Toggle Debugger UI";
-        silent = true;
-      };
+      options.desc = "Toggle Debugger UI";
     }
   ];
 }

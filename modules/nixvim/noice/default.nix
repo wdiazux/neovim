@@ -188,11 +188,8 @@
     {
       mode = "n";
       key = "<leader>fn";
-      action = ":Telescope noice<CR>";
-      options = {
-        desc = "Find notifications";
-        silent = true;
-      };
+      action = "<cmd>Telescope noice<CR>";
+      options.desc = "Find notifications";
     }
   ];
 }

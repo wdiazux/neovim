@@ -10,20 +10,14 @@
     {
       mode = "n";
       key = "<leader>ui";
-      action = ":IBLToggle<CR>";
-      options = {
-        desc = "Indent-Blankline toggle";
-        silent = true;
-      };
+      action = "<cmd>IBLToggle<CR>";
+      options.desc = "Indent-Blankline toggle";
     }
     {
       mode = "n";
       key = "<leader>uI";
-      action = ":IBLToggleScope<CR>";
-      options = {
-        desc = "Indent-Blankline Scope toggle";
-        silent = true;
-      };
+      action = "<cmd>IBLToggleScope<CR>";
+      options.desc = "Indent-Blankline Scope toggle";
     }
   ];
 }

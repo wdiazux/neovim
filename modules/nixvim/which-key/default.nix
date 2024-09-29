@@ -70,7 +70,6 @@
       key = "<leader>?";
       options = {
         desc = "Show available keys";
-        silent = true;
         noremap = true;
       };
       mode = [

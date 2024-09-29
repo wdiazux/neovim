@@ -21,65 +21,44 @@
       {
         mode = "x";
         key = "<leader>re";
-        action = ":Refactor extract ";
-        options = {
-          desc = "Extract";
-          silent = true;
-        };
+        action = "<cmd>Refactor extract ";
+        options.desc = "Extract";
       }
       {
         mode = "x";
         key = "<leader>rE";
-        action = ":Refactor extract_to_file ";
-        options = {
-          desc = "Extract to file";
-          silent = true;
-        };
+        action = "<cmd>Refactor extract_to_file ";
+        options.desc = "Extract to file";
       }
       {
         mode = "x";
         key = "<leader>rv";
-        action = ":Refactor extract_var ";
-        options = {
-          desc = "Extract var";
-          silent = true;
-        };
+        action = "<cmd>Refactor extract_var ";
+        options.desc = "Extract var";
       }
       {
         mode = "n";
         key = "<leader>ri";
-        action = ":Refactor inline_var<CR>";
-        options = {
-          desc = "Inline var";
-          silent = true;
-        };
+        action = "<cmd>Refactor inline_var<CR>";
+        options.desc = "Inline var";
       }
       {
         mode = "n";
         key = "<leader>rI";
-        action = ":Refactor inline_func<CR>";
-        options = {
-          desc = "Inline Func";
-          silent = true;
-        };
+        action = "<cmd>Refactor inline_func<CR>";
+        options.desc = "Inline Func";
       }
       {
         mode = "n";
         key = "<leader>rb";
-        action = ":Refactor extract_block<CR>";
-        options = {
-          desc = "Extract block";
-          silent = true;
-        };
+        action = "<cmd>Refactor extract_block<CR>";
+        options.desc = "Extract block";
       }
       {
         mode = "n";
         key = "<leader>rB";
-        action = ":Refactor extract_block_to_file<CR>";
-        options = {
-          desc = "Extract block to file";
-          silent = true;
-        };
+        action = "<cmd>Refactor extract_block_to_file<CR>";
+        options.desc = "Extract block to file";
       }
     ]
     ++ lib.optionals (config.plugins.telescope.enable && config.plugins.refactoring.enable) [
@@ -91,10 +70,7 @@
             require('telescope').extensions.refactoring.refactors()
           end
         '';
-        options = {
-          desc = "Refactoring";
-          silent = true;
-        };
+        options.desc = "Refactoring";
       }
     ];
 }

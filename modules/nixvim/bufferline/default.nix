@@ -142,47 +142,32 @@ in
     {
       mode = "n";
       key = "<leader>bP";
-      action = ":BufferLineTogglePin<cr>";
-      options = {
-        desc = "Pin buffer toggle";
-        silent = true;
-      };
+      action = "<cmd>BufferLineTogglePin<cr>";
+      options.desc = "Pin buffer toggle";
     }
     {
       mode = "n";
       key = "<leader>bp";
-      action = ":BufferLinePick<cr>";
-      options = {
-        desc = "Pick Buffer";
-        silent = true;
-      };
+      action = "<cmd>BufferLinePick<cr>";
+      options.desc = "Pick Buffer";
     }
     {
       mode = "n";
       key = "<leader>bsd";
-      action = ":BufferLineSortByDirectory<cr>";
-      options = {
-        desc = "Sort By Directory";
-        silent = true;
-      };
+      action = "<cmd>BufferLineSortByDirectory<cr>";
+      options.desc = "Sort By Directory";
     }
     {
       mode = "n";
       key = "<leader>bse";
-      action = ":BufferLineSortByExtension<cr>";
-      options = {
-        desc = "Sort By Extension";
-        silent = true;
-      };
+      action = "<cmd>BufferLineSortByExtension<cr>";
+      options.desc = "Sort By Extension";
     }
     {
       mode = "n";
       key = "<leader>bsr";
-      action = ":BufferLineSortByRelativeDirectory<cr>";
-      options = {
-        desc = "Sort By Relative Directory";
-        silent = true;
-      };
+      action = "<cmd>BufferLineSortByRelativeDirectory<cr>";
+      options.desc = "Sort By Relative Directory";
     }
   ];
 }

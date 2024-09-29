@@ -20,10 +20,7 @@
           }
         end
       '';
-      options = {
-        desc = "Find config files";
-        silent = true;
-      };
+      options.desc = "Find config files";
     }
     {
       mode = "n";
@@ -33,10 +30,7 @@
           require("telescope.builtin").find_files({ hidden = true, no_ignore = true})
         end
       '';
-      options = {
-        desc = "Find all files";
-        silent = true;
-      };
+      options.desc = "Find all files";
     }
     {
       mode = "n";
@@ -46,10 +40,7 @@
           require("telescope.builtin").colorscheme({ enable_preview = true })
         end
       '';
-      options = {
-        desc = "Find theme";
-        silent = true;
-      };
+      options.desc = "Find theme";
     }
     {
       mode = "n";
@@ -61,10 +52,7 @@
           }
         end
       '';
-      options = {
-        desc = "Find words in all files";
-        silent = true;
-      };
+      options.desc = "Find words in all files";
     }
     {
       mode = "n";
@@ -74,10 +62,7 @@
           require("telescope.builtin").live_grep { grep_open_files=true }
         end
       '';
-      options = {
-        desc = "Find words in all open buffers";
-        silent = true;
-      };
+      options.desc = "Find words in all open buffers";
     }
     (lib.mkIf config.plugins.telescope.extensions.file-browser.enable {
       mode = "n";

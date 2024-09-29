@@ -19,10 +19,7 @@ in
           end
         end
       '';
-      options = {
-        desc = "Git Diff toggle";
-        silent = true;
-      };
+      options.desc = "Git Diff toggle";
     }
   ];
 }

@@ -9,11 +9,8 @@
     {
       mode = "n";
       key = "<leader>fp";
-      action = ":Telescope projects<CR>";
-      options = {
-        desc = "Find projects";
-        silent = true;
-      };
+      action = "<cmd>Telescope projects<CR>";
+      options.desc = "Find projects";
     }
   ];
 }

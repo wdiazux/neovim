@@ -94,6 +94,7 @@
         cmake = [ "cmake-format" ];
         cpp = [ "clang_format" ];
         css = [ "stylelint" ];
+        fish = [ "fish_indent" ];
         javascript = {
           __unkeyed-1 = "prettierd";
           __unkeyed-2 = "prettier";
