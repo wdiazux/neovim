@@ -182,15 +182,6 @@
           ];
         };
 
-        gdscript = {
-          enable = true;
-          filetypes = [
-            "gd"
-            "gdscript"
-            "gdscript3"
-          ];
-        };
-
         harper-ls.enable = true;
 
         helm-ls = {
