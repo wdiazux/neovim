@@ -82,7 +82,7 @@ in
             priority = 750;
           }
           {
-            name = "supermaven";
+            name = "codeium";
             priority = 300;
           }
           {

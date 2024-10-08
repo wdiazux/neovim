@@ -44,19 +44,11 @@
     '';
 
   autoCmd = [
-    {
-      event = [
-        "BufRead"
-        "BufNewFile"
-      ];
-      pattern = [
-        "*.txt"
-        "*.md"
-        "*.tex"
-        "LICENSE"
-      ];
-      command = "setlocal spell";
-    }
+    (lib.mkIf config.plugins.lsp.servers.helm_ls.enable {
+      event = "FileType";
+      pattern = "helm";
+      command = "LspRestart";
+    })
   ];
 
   plugins = {
@@ -124,7 +116,6 @@
 
         bashls = {
           enable = true;
-
           filetypes = [
             "sh"
             "bash"
@@ -182,9 +173,18 @@
           ];
         };
 
-        harper-ls.enable = true;
+        harper_ls = {
+          enable = true;
+          settings = {
+            "harper-ls" = {
+              linking_verbs = true;
+              wrong_quotes = true;
+            };
+            codeActions.forceStable = true;
+          };
+        };
 
-        helm-ls = {
+        helm_ls = {
           enable = true;
           filetypes = [ "helm" ];
         };
@@ -202,7 +202,7 @@
           ];
         };
 
-        lua-ls = {
+        lua_ls = {
           enable = true;
           filetypes = [ "lua" ];
         };
@@ -240,7 +240,7 @@
           filetypes = [ "python" ];
         };
 
-        rust-analyzer = {
+        rust_analyzer = {
           enable = lib.mkIf (!config.plugins.rustaceanvim.enable) true;
           filetypes = [ "rust" ];
           installCargo = true;
@@ -270,9 +270,7 @@
               rangeExclusiveHints.enable = true;
             };
 
-            procMacro = {
-              enable = true;
-            };
+            procMacro.enable = true;
           };
         };
 
@@ -286,7 +284,7 @@
           filetypes = [ "toml" ];
         };
 
-        ts-ls = {
+        ts_ls = {
           enable = true;
           filetypes = [
             "javascript"

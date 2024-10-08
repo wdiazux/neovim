@@ -9,7 +9,7 @@
         buffer = "";
         calc = "";
         cmdline = "";
-        supermaven = "󱜙";
+        codeium = "󱜙";
         emoji = "󰞅";
         git = "";
         luasnip = "󰩫";
