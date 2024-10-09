@@ -241,7 +241,7 @@
         };
 
         rust_analyzer = {
-          enable = lib.mkIf (!config.plugins.rustaceanvim.enable) true;
+          enable = !config.plugins.rustaceanvim.enable;
           filetypes = [ "rust" ];
           installCargo = true;
           installRustc = true;
