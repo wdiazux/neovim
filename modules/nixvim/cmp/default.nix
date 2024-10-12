@@ -83,7 +83,7 @@ in
           }
           {
             name = "codeium";
-            priority = 300;
+            priority = 600;
           }
           {
             name = "buffer";
