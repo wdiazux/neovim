@@ -29,8 +29,8 @@
 
     messages = {
       view = "mini";
-      viewError = "mini";
-      viewWarn = "mini";
+      view_error = "mini";
+      view_warn = "mini";
     };
 
     lsp = {
