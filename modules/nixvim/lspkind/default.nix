@@ -9,7 +9,7 @@
         buffer = "";
         calc = "";
         cmdline = "";
-        codeium = "󱜙";
+        chatpt = "󱜙";
         emoji = "󰞅";
         git = "";
         luasnip = "󰩫";

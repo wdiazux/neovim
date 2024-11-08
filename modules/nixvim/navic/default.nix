@@ -4,10 +4,7 @@
 
     settings.lsp = {
       autoAttach = true;
-      preference = [
-        "clangd"
-        "ts-ls"
-      ];
+      preference = [ "ts-ls" ];
     };
   };
 }

@@ -3,8 +3,8 @@
     enable = true;
 
     settings = {
-      indent.enable = true;
       folding = true;
+      indent.enable = true;
       nixvimInjections = true;
 
       highlight = {

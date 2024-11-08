@@ -4,22 +4,12 @@
     neotest = {
       enable = true;
 
-      settings = {
-        adapters = lib.optionals config.plugins.rustaceanvim.enable [
-          # Lua
-          ''require('rustaceanvim.neotest')''
-        ];
-      };
-
       adapters = {
         bash.enable = config.plugins.neotest.enable;
-        deno.enable = config.plugins.neotest.enable;
         go.enable = config.plugins.neotest.enable;
         playwright.enable = config.plugins.neotest.enable;
         plenary.enable = config.plugins.neotest.enable;
         python.enable = config.plugins.neotest.enable;
-        # rust.enable = config.plugins.neotest.enable;
-        zig.enable = config.plugins.neotest.enable;
       };
     };
 
@@ -35,34 +25,10 @@
   keymaps = lib.mkIf config.plugins.neotest.enable [
     {
       mode = "n";
-      key = "<leader>dn";
-      action.__raw = ''
-        function()
-          require("neotest").run.run({strategy = "dap"})
-        end
-      '';
-      options = {
-        desc = "Neotest Debug";
-      };
-    }
-    {
-      mode = "n";
       key = "<leader>na";
       action = "<CMD>Neotest attach<CR>";
       options = {
         desc = "Attach";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>nd";
-      action.__raw = ''
-        function()
-          require("neotest").run.run({strategy = "dap"})
-        end
-      '';
-      options = {
-        desc = "Debug";
       };
     }
     {

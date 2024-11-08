@@ -18,7 +18,6 @@
           ];
           winbar = [
             "neo-tree"
-            "dap-repl"
             "Trouble"
           ];
         };

@@ -89,10 +89,6 @@
           "shellharden"
           "shfmt"
         ];
-        bicep = [ "bicep" ];
-        c = [ "clang_format" ];
-        cmake = [ "cmake-format" ];
-        cpp = [ "clang_format" ];
         css = [ "stylelint" ];
         fish = [ "fish_indent" ];
         javascript = {
@@ -109,7 +105,6 @@
           "isort"
           "ruff"
         ];
-        rust = [ "rustfmt" ];
         sh = [
           "shellcheck"
           "shellharden"
@@ -129,7 +124,6 @@
           "xmllint"
         ];
         yaml = [ "yamlfmt" ];
-        zig = [ "zigfmt" ];
         "_" = [
           "squeeze_blanks"
           "trim_whitespace"
@@ -138,17 +132,12 @@
       };
 
       formatters = {
-        black.command = lib.getExe pkgs.black;
-        bicep.command = lib.getExe pkgs.bicep;
-        cmake-format.command = lib.getExe pkgs.cmake-format;
-        deno_fmt.command = lib.getExe pkgs.deno;
         isort.command = lib.getExe pkgs.isort;
         fantomas.command = lib.getExe pkgs.fantomas;
         jq.command = lib.getExe pkgs.jq;
         nixfmt.command = lib.getExe pkgs.nixfmt-rfc-style;
         prettierd.command = lib.getExe pkgs.prettierd;
         ruff.command = lib.getExe pkgs.ruff;
-        rustfmt.command = lib.getExe pkgs.rustfmt;
         shellcheck.command = lib.getExe pkgs.shellcheck;
         shfmt.command = lib.getExe pkgs.shfmt;
         shellharden.command = lib.getExe pkgs.shellharden;
@@ -160,7 +149,6 @@
         terraform_fmt.command = lib.getExe pkgs.terraform;
         xmlformat.command = lib.getExe pkgs.xmlformat;
         yamlfmt.command = lib.getExe pkgs.yamlfmt;
-        zigfmt.command = lib.getExe pkgs.zig;
       };
     };
   };

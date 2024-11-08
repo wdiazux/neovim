@@ -82,7 +82,7 @@ in
             priority = 750;
           }
           {
-            name = "codeium";
+            name = "chatgpt";
             priority = 600;
           }
           {

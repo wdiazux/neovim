@@ -97,9 +97,7 @@ in
               map
                 (name: {
                   inherit name;
-                  value = {
-                    bg = color1;
-                  };
+                  value.bg = color1;
                 })
                 [
                   # "separator_selected" # Handled uniquely
