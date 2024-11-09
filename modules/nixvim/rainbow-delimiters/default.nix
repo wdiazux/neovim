@@ -1,4 +1,3 @@
-{ ... }:
 {
   plugins = {
     rainbow-delimiters = {

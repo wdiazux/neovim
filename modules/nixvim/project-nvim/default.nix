@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 {
   plugins.project-nvim = {
     enable = true;

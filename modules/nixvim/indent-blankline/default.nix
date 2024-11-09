@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 {
   plugins.indent-blankline = {
     enable = true;

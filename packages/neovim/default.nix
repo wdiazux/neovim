@@ -2,8 +2,8 @@
   lib,
   pkgs,
   inputs,
-  neovim-settings ? { },
   neovim-config ? { },
+  neovim-settings ? { },
   ...
 }:
 let

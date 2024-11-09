@@ -18,7 +18,6 @@
         };
         leap = true;
         lsp_trouble = true;
-        mason = true;
         native_lsp = {
           enabled = true;
           underlines = {

@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 {
   autoCmd = lib.mkIf (lib.hasAttr "sessions" config.plugins.mini.modules) [
     {
@@ -9,8 +9,6 @@
         "neo-tree"
         "Trouble"
         "trouble"
-        "lazy"
-        "mason"
         "notify"
         "toggleterm"
         "lazyterm"

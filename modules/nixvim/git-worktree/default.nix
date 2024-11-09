@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 let
   cfg = config.plugins.git-worktree;
 in

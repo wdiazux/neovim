@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 {
   autoCmd =
     lib.mkIf (config.plugins.mini.enable && lib.hasAttr "indentscope" config.plugins.mini.modules)
@@ -13,7 +13,6 @@
             "neo-tree"
             "Trouble"
             "trouble"
-            "mason"
             "notify"
             "toggleterm"
           ];
