@@ -223,16 +223,6 @@
           filetypes = [ "toml" ];
         };
 
-        ts_ls = {
-          enable = !config.plugins.typescript-tools.enable;
-          filetypes = [
-            "javascript"
-            "javascriptreact"
-            "typescript"
-            "typescriptreact"
-          ];
-        };
-
         yamlls = {
           enable = true;
           filetypes = [ "yaml" ];
