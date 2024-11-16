@@ -11,14 +11,12 @@ in
   plugins.bufferline =
     let
       mouse = {
-        right = # Lua
-          "'vertical sbuffer %d'";
-        close = # Lua
-          ''
-            function(bufnum)
-              require("mini.bufremove").delete(bufnum)
-            end
-          '';
+        right = "'vertical sbuffer %d'";
+        close = ''
+          function(bufnum)
+            require("mini.bufremove").delete(bufnum)
+          end
+        '';
       };
     in
     {
@@ -33,20 +31,19 @@ in
           separator_style = "thick";
           sort_by = "extension";
 
-          diagnostics_indicator = # Lua
-            ''
-              function(count, level, diagnostics_dict, context)
-                local s = ""
-                for e, n in pairs(diagnostics_dict) do
-                  local sym = e == "error" and " "
-                    or (e == "warning" and " " or " " )
-                  if(sym ~= "") then
-                    s = s .. n .. sym
-                  end
+          diagnostics_indicator = ''
+            function(count, level, diagnostics_dict, context)
+              local s = ""
+              for e, n in pairs(diagnostics_dict) do
+                local sym = e == "error" and " "
+                  or (e == "warning" and " " or " " )
+                if(sym ~= "") then
+                  s = s .. n .. sym
                 end
-                return s
               end
-            '';
+              return s
+            end
+          '';
 
           groups.items = [
             {
@@ -100,7 +97,6 @@ in
                   value.bg = color1;
                 })
                 [
-                  # "separator_selected" # Handled uniquely
                   "buffer_selected"
                   "tab_selected"
                   "numbers_selected"

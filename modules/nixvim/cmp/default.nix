@@ -17,7 +17,6 @@ in
   opts.completeopt = [
     "menu"
     "menuone"
-    "noinsert"
     "noselect"
   ];
 
@@ -80,10 +79,6 @@ in
           {
             name = "luasnip";
             priority = 750;
-          }
-          {
-            name = "chatgpt";
-            priority = 600;
           }
           {
             name = "buffer";

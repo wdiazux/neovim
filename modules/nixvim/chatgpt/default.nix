@@ -5,8 +5,8 @@
       enable = true;
 
       settings = rec {
-        api_host_cmd = "echo -n https://openrouter.ai/api";
         api_type_cmd = "echo localai";
+        api_host_cmd = "echo -n https://openrouter.ai/api";
         openai_params = {
           model = "anthropic/claude-3.5-sonnet";
           max_tokens = "4095";
