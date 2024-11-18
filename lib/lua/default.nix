@@ -53,7 +53,6 @@ rec {
     else if isList args then
       "{" + concatMapStringsSep "," toLuaObject args + "}"
     else if isString args then
-      # This should be enough!
       toJSON args
     else if isPath args then
       toJSON (toString args)
