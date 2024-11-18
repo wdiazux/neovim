@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nixvim = {
       url = "github:nix-community/nixvim";
