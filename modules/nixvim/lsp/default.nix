@@ -113,6 +113,7 @@
       servers = {
         astro.enable = true;
         bashls.enable = true;
+        biome.enable = true;
         cssls.enable = true;
         dockerls.enable = true;
         eslint.enable = true;
