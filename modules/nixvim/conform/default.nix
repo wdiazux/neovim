@@ -89,8 +89,8 @@
         css = [ "stylelint" ];
         fish = [ "fish_indent" ];
         javascript = {
-          __unkeyed-1 = "prettierd";
-          __unkeyed-2 = "prettier";
+          __unkeyed-1 = "biome";
+          __unkeyed-2 = "prettierd";
           timeout_ms = 2000;
           stop_after_first = true;
         };
@@ -111,8 +111,8 @@
         terraform = [ "terraform_fmt" ];
         toml = [ "taplo" ];
         typescript = {
-          __unkeyed-1 = "prettierd";
-          __unkeyed-2 = "prettier";
+          __unkeyed-1 = "biome";
+          __unkeyed-2 = "prettierd";
           timeout_ms = 2000;
           stop_after_first = true;
         };
@@ -129,6 +129,7 @@
       };
 
       formatters = {
+        biome.command = lib.getExe pkgs.biome;
         isort.command = lib.getExe pkgs.isort;
         jq.command = lib.getExe pkgs.jq;
         nixfmt.command = lib.getExe pkgs.nixfmt-rfc-style;
