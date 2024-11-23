@@ -112,39 +112,10 @@
 
       servers = {
         astro.enable = true;
-
-        bashls = {
-          enable = true;
-          filetypes = [
-            "sh"
-            "bash"
-          ];
-        };
-
-        cssls = {
-          enable = true;
-          filetypes = [
-            "css"
-            "less"
-            "scss"
-          ];
-        };
-
-        dockerls = {
-          enable = true;
-          filetypes = [ "dockerfile" ];
-        };
-
-        eslint = {
-          enable = true;
-          filetypes = [
-            "javascript"
-            "javascriptreact"
-            "typescript"
-            "typescriptreact"
-          ];
-        };
-
+        bashls.enable = true;
+        cssls.enable = true;
+        dockerls.enable = true;
+        eslint.enable = true;
         harper_ls = {
           enable = true;
           settings = {
@@ -155,38 +126,13 @@
             codeActions.forceStable = true;
           };
         };
-
-        helm_ls = {
-          enable = true;
-          filetypes = [ "helm" ];
-        };
-
-        html = {
-          enable = true;
-          filetypes = [ "html" ];
-        };
-
-        jsonls = {
-          enable = true;
-          filetypes = [
-            "json"
-            "jsonc"
-          ];
-        };
-
-        lua_ls = {
-          enable = true;
-          filetypes = [ "lua" ];
-        };
-
-        marksman = {
-          enable = true;
-          filetypes = [ "markdown" ];
-        };
-
+        helm_ls.enable = true;
+        html.enable = true;
+        jsonls.enable = true;
+        lua_ls.enable = true;
+        marksman.enable = true;
         nixd = {
           enable = true;
-          filetypes = [ "nix" ];
           settings = {
             nixpkgs.expr = "import <nixpkgs> {}";
             formatting.command = [ "nixfmt" ];
@@ -201,31 +147,12 @@
             };
           };
         };
-
-        pyright = {
-          enable = true;
-          filetypes = [ "python" ];
-        };
-
-        ruff = {
-          enable = true;
-          filetypes = [ "python" ];
-        };
-
-        sqls = {
-          enable = true;
-          filetypes = [ "sql" ];
-        };
-
-        taplo = {
-          enable = true;
-          filetypes = [ "toml" ];
-        };
-
-        yamlls = {
-          enable = true;
-          filetypes = [ "yaml" ];
-        };
+        nushell.enable = true;
+        pyright.enable = true;
+        ruff.enable = true;
+        sqls.enable = true;
+        taplo.enable = true;
+        yamlls.enable = true;
       };
     };
 
