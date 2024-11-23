@@ -8,15 +8,16 @@
       default_integrations = true;
 
       integrations = {
+        cmp = true;
+        gitsigns = true;
         diffview = true;
-        fidget = true;
-        headlines = true;
-        hop = true;
+        illuminate = {
+          enabled = true;
+        };
         indent_blankline = {
           enabled = true;
           colored_indent_levels = true;
         };
-        leap = true;
         lsp_trouble = true;
         native_lsp = {
           enabled = true;
@@ -27,6 +28,10 @@
             information = [ "undercurl" ];
           };
         };
+        mini = {
+          enabled = true;
+          indentscope_color = "mocha";
+        };
         navic = {
           enabled = true;
           custom_bg = "lualine";
@@ -35,9 +40,7 @@
         neotest = true;
         noice = true;
         notify = true;
-        overseer = true;
-        sandwich = true;
-        symbols_outline = true;
+        vim_sneak = true;
         telescope = {
           enabled = true;
           style = "nvchad";
