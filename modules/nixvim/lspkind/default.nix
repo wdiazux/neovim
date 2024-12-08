@@ -1,8 +1,9 @@
+{ config, lib }:
 {
   plugins.lspkind = {
     enable = true;
 
-    cmp = {
+    cmp = lib.mkIf config.plugins.cmp.enable {
       enable = true;
 
       menu = {
@@ -18,6 +19,7 @@
         path = "";
         spell = "";
         treesitter = "󰔱";
+        nixpkgs_maintainers = "";
       };
     };
   };
