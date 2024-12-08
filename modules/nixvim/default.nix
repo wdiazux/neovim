@@ -21,6 +21,12 @@
     };
 
     opts = {
+      completeopt = [
+        "menu"
+        "menuone"
+        "noselect"
+      ];
+
       updatetime = 100;
 
       # Line numbers

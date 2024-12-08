@@ -14,12 +14,6 @@ let
   '';
 in
 {
-  opts.completeopt = [
-    "menu"
-    "menuone"
-    "noselect"
-  ];
-
   plugins = {
     luasnip.enable = true;
 
