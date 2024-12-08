@@ -1,4 +1,4 @@
-{ config, lib }:
+{ config, lib, ... }:
 {
   plugins.lspkind = {
     enable = true;
