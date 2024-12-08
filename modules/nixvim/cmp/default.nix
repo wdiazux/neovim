@@ -15,8 +15,6 @@ let
 in
 {
   plugins = {
-    luasnip.enable = true;
-
     cmp = {
       enable = true;
       autoEnableSources = true;
