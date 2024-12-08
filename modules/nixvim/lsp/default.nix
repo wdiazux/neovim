@@ -148,6 +148,10 @@
             };
           };
         };
+        typos_lsp = {
+          enable = true;
+          extraOptions.init_options.diagnosticSeverity = "Hint";
+        };
         nushell.enable = true;
         pyright.enable = true;
         ruff.enable = true;
