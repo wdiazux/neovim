@@ -59,10 +59,10 @@
           cmd = lib.getExe pkgs.htmlhint;
         };
         jsonlint = {
-          cmd = lib.getExe pkgs.nodePackages.jsonlint;
+          cmd = lib.getExe' pkgs.nodePackages.jsonlint "jsonlint";
         };
         luacheck = {
-          cmd = lib.getExe pkgs.luaPackages.luacheck;
+          cmd = lib.getExe' pkgs.luaPackages.luacheck "luacheck";
         };
         markdownlint = {
           cmd = lib.getExe pkgs.markdownlint-cli;
