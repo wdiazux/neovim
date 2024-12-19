@@ -4,4 +4,4 @@
   inputs,
   ...
 }:
-mkShell { inherit (inputs.self.checks.${system}.pre-commit-check) shellHook; }
+mkShell { inherit (inputs.self.checks.${system}.git-hooks-nix) shellHook; }

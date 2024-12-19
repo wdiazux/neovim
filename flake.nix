@@ -14,8 +14,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks-nix = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -35,7 +35,7 @@
       outputs-builder = channels: {
         formatter = channels.nixpkgs.nixfmt-rfc-style;
 
-        checks.pre-commit-check = inputs.pre-commit-hooks.lib.${channels.nixpkgs.system}.run {
+        checks.pre-commit-check = inputs.git-hooks-nix.lib.${channels.nixpkgs.system}.run {
           src = ./.;
           hooks = {
             nixfmt-rfc-style = {

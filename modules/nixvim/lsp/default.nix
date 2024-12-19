@@ -63,26 +63,19 @@
         diagnostic = {
           "<leader>l[" = "goto_prev";
           "<leader>l]" = "goto_next";
-          # TODO: fix theme of float
           "<leader>lH" = "open_float";
         };
 
         extra = [
           {
-            action.__raw = ''
-              function()
-                vim.lsp.buf.format({
-                  async = true,
-                  range = {
-                    ["start"] = vim.api.nvim_buf_get_mark(0, "<"),
-                    ["end"] = vim.api.nvim_buf_get_mark(0, ">"),
-                  }
-                })
-              end
-            '';
+            action.__raw = ''vim.lsp.buf.format'';
             mode = "v";
             key = "<leader>lf";
-            options.desc = "Format selection";
+            options = {
+              silent = true;
+              buffer = false;
+              desc = "Format selection";
+            };
           }
           {
             action.__raw = "peek_definition";
@@ -117,6 +110,7 @@
         cssls.enable = true;
         dockerls.enable = true;
         eslint.enable = true;
+        fish.enable = true;
         harper_ls = {
           enable = true;
           settings = {
@@ -157,6 +151,7 @@
         ruff.enable = true;
         sqls.enable = true;
         taplo.enable = true;
+        ts_ls.enable = false;
         yamlls.enable = true;
       };
     };
