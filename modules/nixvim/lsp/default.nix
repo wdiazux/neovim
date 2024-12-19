@@ -110,7 +110,6 @@
         cssls.enable = true;
         dockerls.enable = true;
         eslint.enable = true;
-        fish.enable = true;
         harper_ls = {
           enable = true;
           settings = {
