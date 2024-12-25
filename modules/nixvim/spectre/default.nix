@@ -1,6 +1,9 @@
 { lib, config, ... }:
 {
-  plugins.spectre.enable = true;
+  plugins.spectre = {
+    enable = true;
+    lazyLoad.settings.cmd = "Spectre";
+  };
 
   keymaps = lib.mkIf config.plugins.spectre.enable [
     {

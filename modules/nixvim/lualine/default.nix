@@ -4,28 +4,35 @@
   helpers,
   ...
 }:
+let
+  cond.__raw = ''
+    function()
+      local buf_size_limit = 1024 * 1024 -- 1MB size limit
+      if vim.api.nvim_buf_get_offset(0, vim.api.nvim_buf_line_count(0)) > buf_size_limit then
+        return false
+      end
+
+      return true
+    end
+  '';
+in
 {
   plugins.lualine = {
     enable = true;
+
+    lazyLoad.settings.event = "BufEnter";
 
     settings = {
       options = {
         globalstatus = true;
 
         disabled_filetypes = {
-          statusline = [
-            "Trouble"
-          ];
+          __unkeyed-1 = "startify";
+          __unkeyed-2 = "neo-tree";
           winbar = [
-            "neo-tree"
-            "Trouble"
+            "neotest-summary"
           ];
         };
-
-        ignore_focus = [
-          "neo-tree"
-          "Trouble"
-        ];
       };
 
       sections = {

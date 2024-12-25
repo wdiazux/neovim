@@ -4,6 +4,8 @@
     refactoring = {
       enable = true;
       enableTelescope = true;
+
+      lazyLoad.settings.cmd = "Refactor";
     };
 
     which-key.settings.spec = lib.optionals config.plugins.refactoring.enable [

@@ -22,6 +22,8 @@ in
     {
       enable = true;
 
+      lazyLoad.settings.event = "BufEnter";
+
       settings = {
         options = {
           always_show_bufferline = false;

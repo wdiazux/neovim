@@ -4,6 +4,8 @@
     trouble = {
       enable = true;
 
+      lazyLoad.settings.event = "BufEnter";
+
       settings.modes = {
         preview_split = {
           mode = "diagnostics";

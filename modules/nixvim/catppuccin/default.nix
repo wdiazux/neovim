@@ -3,6 +3,9 @@
 
   colorschemes.catppuccin = {
     enable = true;
+
+    lazyLoad.enable = true;
+
     settings = {
       flavour = "mocha";
       term_colors = true;
@@ -23,21 +26,25 @@
         lsp_trouble = true;
         native_lsp = {
           enabled = true;
+          virtual_text = {
+            errors = [ "italic" ];
+            hints = [ "italic" ];
+            warnings = [ "italic" ];
+            information = [ "italic" ];
+          };
           underlines = {
             errors = [ "undercurl" ];
             hints = [ "undercurl" ];
             warnings = [ "undercurl" ];
             information = [ "undercurl" ];
           };
+          inlay_hints.background = true;
         };
         mini = {
           enabled = true;
           indentscope_color = "mocha";
         };
-        navic = {
-          enabled = true;
-          custom_bg = "lualine";
-        };
+        navic.enabled = true;
         neotree = false;
         neotest = true;
         noice = true;
@@ -47,6 +54,7 @@
           enabled = true;
           style = "nvchad";
         };
+        treesitter = true;
         which_key = true;
       };
     };

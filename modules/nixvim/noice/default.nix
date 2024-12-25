@@ -20,7 +20,6 @@
       };
 
       views = {
-        popupmenu.backend = "cmp";
         cmdline_popup.border.style = "single";
         confirm.border = {
           style = "single";

@@ -1,12 +1,9 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
 {
-  extraPackages = with pkgs; [ nixfmt-rfc-style ];
-
   extraConfigLuaPre = ''
     local diagnostic_signs = { Error = "", Warn = "", Hint = "", Info = "" }
 
@@ -150,7 +147,7 @@
         ruff.enable = true;
         sqls.enable = true;
         taplo.enable = true;
-        ts_ls.enable = false;
+        ts_ls.enable = !config.plugins.typescript-tools.enable;
         yamlls.enable = true;
       };
     };

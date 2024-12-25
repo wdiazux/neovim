@@ -9,7 +9,6 @@ in
 
       settings = {
         current_line_blame = true;
-        trouble = config.plugins.trouble.enable;
 
         current_line_blame_opts = {
           delay = 500;
@@ -80,7 +79,10 @@ in
       action.__raw = ''
         function() require("gitsigns").blame_line{full=true} end
       '';
-      options.desc = "Git Blame toggle";
+      options = {
+        desc = "Git Blame toggle";
+        silent = true;
+      };
     }
     # Hunk binds
     {
@@ -95,7 +97,10 @@ in
           return '<Ignore>'
         end
       '';
-      options.desc = "Previous hunk";
+      options = {
+        desc = "Previous hunk";
+        silent = true;
+      };
     }
     {
       mode = "n";

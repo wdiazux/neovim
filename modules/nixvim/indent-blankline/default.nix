@@ -1,7 +1,9 @@
 { lib, config, ... }:
 {
   plugins.indent-blankline = {
-    enable = true;
+    enable =
+      (!lib.hasAttr "indent" config.plugins.snacks.settings)
+      || !config.plugins.snacks.settings.indent.enabled;
 
     settings.scope.enabled = false;
   };

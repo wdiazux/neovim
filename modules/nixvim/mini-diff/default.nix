@@ -10,7 +10,10 @@
       mode = "n";
       key = "<leader>ugo";
       action.__raw = "MiniDiff.toggle_overlay";
-      options.desc = "Git Overlay toggle";
+      options = {
+        desc = "Git Overlay toggle";
+        silent = true;
+      };
     }
   ];
 }

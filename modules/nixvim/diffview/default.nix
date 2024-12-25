@@ -19,7 +19,10 @@ in
           end
         end
       '';
-      options.desc = "Git Diff toggle";
+      options = {
+        desc = "Git Diff toggle";
+        silent = true;
+      };
     }
   ];
 }

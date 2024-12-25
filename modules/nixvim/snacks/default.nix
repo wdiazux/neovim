@@ -43,7 +43,9 @@
       };
       bufdelete.enabled = true;
       gitbrowse.enabled = true;
+      indent.enabled = true;
       lazygit.enabled = true;
+      scroll.enabled = true;
       statuscolumn = {
         enabled = true;
 

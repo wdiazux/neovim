@@ -3,6 +3,8 @@
   plugins.todo-comments = {
     enable = true;
 
+    lazyLoad.settings.event = [ "BufEnter" ];
+
     settings = {
       signs = true;
 

@@ -1,7 +1,7 @@
 { lib, config, ... }:
 {
   plugins.treesitter-context = {
-    enable = true;
+    inherit (config.plugins.treesitter) enable;
     settings = {
       max_lines = 4;
       min_window_height = 40;

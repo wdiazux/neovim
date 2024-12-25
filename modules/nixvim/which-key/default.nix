@@ -2,6 +2,8 @@
   plugins.which-key = {
     enable = true;
 
+    lazyLoad.settings.event = "UIEnter";
+
     settings = {
       spec = [
         {
@@ -63,19 +65,4 @@
       win.border = "single";
     };
   };
-
-  keymaps = [
-    {
-      action = "<cmd>WhichKey<cr>";
-      key = "<leader>?";
-      options = {
-        desc = "Show available keys";
-        noremap = true;
-      };
-      mode = [
-        "n"
-        "v"
-      ];
-    }
-  ];
 }

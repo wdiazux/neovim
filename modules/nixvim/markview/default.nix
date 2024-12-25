@@ -1,6 +1,9 @@
 {
   plugins.markview = {
     enable = true;
+
+    lazyLoad.settings.ft = "markdown";
+
     settings = {
       buf_ignore = [ ];
 
