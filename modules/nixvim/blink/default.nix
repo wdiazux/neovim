@@ -46,6 +46,10 @@
               };
             };
           };
+          fuzzy.prebuilt_binaries = {
+            download = false;
+            ignore_version_mismatch = true;
+          };
           appearance.use_nvim_cmp_as_default = true;
           keymap = {
             preset = "enter";
@@ -72,33 +76,40 @@
           };
           sources = {
             default = [
+              # Built-in sources
               "buffer"
-              "calc"
-              "copilot"
-              "git"
               "lsp"
               "luasnip"
               "path"
               "snippets"
+              # Community
+              "copilot"
+              # cmp sources
+              # TODO: migrate when available
+              "calc"
+              "git"
               "spell"
             ];
             providers = {
-              calc = {
-                name = "calc";
-                module = "blink.compat.source";
-                score_offset = 2;
-              };
+              # Built-in sources
+              lsp.score_offset = 4;
+              # Community
               copilot = {
                 name = "copilot";
                 module = "blink-cmp-copilot";
                 score_offset = 5;
+              };
+              # cmp sources
+              calc = {
+                name = "calc";
+                module = "blink.compat.source";
+                score_offset = 2;
               };
               git = {
                 name = "git";
                 module = "blink.compat.source";
                 score_offset = 0;
               };
-              lsp.score_offset = 4;
               spell = {
                 name = "spell";
                 module = "blink.compat.source";
@@ -113,7 +124,6 @@
       cmp-calc.enable = true;
       cmp-git.enable = true;
       cmp-spell.enable = true;
-      cmp-treesitter.enable = true;
 
       lsp.capabilities = ''
         capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
