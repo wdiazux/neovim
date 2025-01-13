@@ -24,12 +24,12 @@ in
     };
     which-key.settings.spec = lib.optionals config.plugins.gitsigns.enable [
       {
-        __unkeyed = "<leader>gh";
+        __unkeyed-1 = "<leader>gh";
         group = "Hunks";
         icon = " ";
       }
       {
-        __unkeyed = "<leader>ug";
+        __unkeyed-1 = "<leader>ug";
         group = "Git";
       }
     ];

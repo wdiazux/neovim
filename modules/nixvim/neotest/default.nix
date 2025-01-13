@@ -88,7 +88,7 @@
 
     which-key.settings.spec = lib.optionals config.plugins.neotest.enable [
       {
-        __unkeyed = "<leader>n";
+        __unkeyed-1 = "<leader>n";
         group = "Neotest";
         icon = "󰙨";
       }

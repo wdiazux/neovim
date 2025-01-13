@@ -39,16 +39,9 @@
     }
   '';
 
-  autoCmd = [
-    (lib.mkIf config.plugins.lsp.servers.helm_ls.enable {
-      event = "FileType";
-      pattern = "helm";
-      command = "LspRestart";
-    })
-  ];
-
   plugins = {
-    lsp-format.enable = lib.mkIf (!config.plugins.conform-nvim.enable) true;
+    lsp-format.enable = !config.plugins.conform-nvim.enable && config.plugins.lsp.enable;
+    lsp-signature.enable = config.plugins.lsp.enable;
 
     lsp = {
       enable = true;
@@ -107,41 +100,10 @@
         cssls.enable = true;
         dockerls.enable = true;
         eslint.enable = true;
-        harper_ls = {
-          enable = true;
-          settings = {
-            "harper-ls" = {
-              linking_verbs = true;
-              wrong_quotes = true;
-            };
-            codeActions.forceStable = true;
-          };
-        };
-        helm_ls.enable = true;
         html.enable = true;
         jsonls.enable = true;
         lua_ls.enable = true;
         marksman.enable = true;
-        nixd = {
-          enable = true;
-          settings = {
-            nixpkgs.expr = "import <nixpkgs> {}";
-            formatting.command = [ "nixfmt" ];
-            diagnostic.suppress = [ "sema-extra-with" ];
-            options = {
-              nixos.expr = ''
-                let configs = (builtins.getFlake ("git+file://" + builtins.toString ./.)).nixosConfigurations; in (builtins.head (builtins.attrValues configs)).options
-              '';
-              home_manager.expr = ''
-                let configs = (builtins.getFlake ("git+file://" + builtins.toString ./.)).homeConfigurations; in (builtins.head (builtins.attrValues configs)).options
-              '';
-            };
-          };
-        };
-        typos_lsp = {
-          enable = true;
-          extraOptions.init_options.diagnosticSeverity = "Hint";
-        };
         nushell.enable = true;
         pyright.enable = true;
         ruff.enable = true;
@@ -154,52 +116,52 @@
 
     which-key.settings.spec = [
       {
-        __unkeyed = "<leader>l";
+        __unkeyed-1 = "<leader>l";
         group = "LSP";
         icon = " ";
       }
       {
-        __unkeyed = "<leader>la";
+        __unkeyed-1 = "<leader>la";
         desc = "Code Action";
       }
       {
-        __unkeyed = "<leader>ld";
+        __unkeyed-1 = "<leader>ld";
         desc = "Definition";
       }
       {
-        __unkeyed = "<leader>lD";
+        __unkeyed-1 = "<leader>lD";
         desc = "References";
       }
       {
-        __unkeyed = "<leader>lf";
+        __unkeyed-1 = "<leader>lf";
         desc = "Format";
       }
       {
-        __unkeyed = "<leader>l[";
+        __unkeyed-1 = "<leader>l[";
         desc = "Prev";
       }
       {
-        __unkeyed = "<leader>l]";
+        __unkeyed-1 = "<leader>l]";
         desc = "Next";
       }
       {
-        __unkeyed = "<leader>lt";
+        __unkeyed-1 = "<leader>lt";
         desc = "Type Definition";
       }
       {
-        __unkeyed = "<leader>li";
+        __unkeyed-1 = "<leader>li";
         desc = "Implementation";
       }
       {
-        __unkeyed = "<leader>lh";
+        __unkeyed-1 = "<leader>lh";
         desc = "Lsp Hover";
       }
       {
-        __unkeyed = "<leader>lH";
+        __unkeyed-1 = "<leader>lH";
         desc = "Diagnostic Hover";
       }
       {
-        __unkeyed = "<leader>lr";
+        __unkeyed-1 = "<leader>lr";
         desc = "Rename";
       }
     ];
