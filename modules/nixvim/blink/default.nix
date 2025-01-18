@@ -79,7 +79,6 @@
               # Built-in sources
               "buffer"
               "lsp"
-              "luasnip"
               "path"
               "snippets"
               # Community
