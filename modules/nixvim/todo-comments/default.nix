@@ -1,87 +1,66 @@
-{ lib, ... }:
+{ lib, config, ... }:
 {
   plugins.todo-comments = {
     enable = true;
 
-    lazyLoad.settings.event = [ "BufEnter" ];
-
-    settings = {
-      signs = true;
-
-      highlight = {
-        multiline = true;
-        pattern = ''.*<(KEYWORDS)\s*:'';
-        before = "fg";
-      };
-
-      search = {
-        pattern = ''\b(KEYWORDS):'';
-      };
-
-      mergeKeywords = true;
-
-      keywords = {
-        FIX = {
-          icon = " ";
-          color = "error";
-          alt = [
-            "FIXME"
-            "BUG"
-            "FIXIT"
-            "ISSUE"
+    lazyLoad.settings = {
+      keys =
+        lib.mkIf (config.plugins.snacks.enable && lib.hasAttr "picker" config.plugins.snacks.settings)
+          [
+            {
+              __unkeyed-1 = "<leader>ft";
+              __unkeyed-2 = ''<CMD>lua Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" }})<CR>'';
+              desc = "Find TODOs";
+            }
           ];
-        };
-        TODO = {
-          icon = " ";
-          color = "todo";
-        };
-        HACK = {
-          icon = " ";
-          color = "error";
-          alt = [
-            "HACK"
-            "DRAGONS"
-          ];
-        };
-        WARN = {
-          icon = " ";
-          color = "warning";
-          alt = [
-            "WARNING"
-            "WARNING"
-            "WARN"
-          ];
-        };
-        PERF = {
-          icon = " ";
-          color = "info";
-          alt = [
-            "OPTIM"
-            "PERFORMANCE"
-            "OPTIMIZE"
-            "PERF"
-            "PERFORMANCE"
-          ];
-        };
-        NOTE = {
-          icon = " ";
-          color = "hint";
-          alt = [
-            "INFO"
-            "NOTE"
-            "INFO"
-          ];
-        };
-      };
+      cmd = [
+        "TodoFzfLua"
+        "TodoLocList"
+        "TodoQuickFix"
+        "TodoTelescope"
+        "TodoTrouble"
+      ];
+    };
 
-      colors = with lib.plusultra.theme.catppuccin-mocha; {
-        error = [ color11 ];
-        warning = [ color12 ];
-        info = [ color15 ];
-        hint = [ color10 ];
-        todo = [ color6 ];
-        default = [ color6 ];
-      };
+    keymaps = {
+      todoTrouble.key = lib.mkIf config.plugins.trouble.enable "<leader>xq";
+      # Fallback if snacks picker not enabled
+      todoFzfLua =
+        lib.mkIf
+          (
+            config.plugins.fzf-lua.enable
+            && (
+              !config.plugins.snacks.enable
+              || (config.plugins.snacks.enable && !lib.hasAttr "picker" config.plugins.snacks.settings)
+            )
+          )
+          {
+            key = "<leader>ft";
+            keywords = [
+              "TODO"
+              "FIX"
+              "FIXME"
+            ];
+          };
+      # Fallback if no others enabled
+      todoTelescope =
+        lib.mkIf
+          (
+            config.plugins.telescope.enable
+            && !config.plugins.fzf-lua.enable
+            && (
+              !config.plugins.snacks.enable
+              || (config.plugins.snacks.enable && !lib.hasAttr "picker" config.plugins.snacks.settings)
+            )
+          )
+          {
+            key = "<leader>ft";
+            keywords = [
+              "TODO"
+              "FIX"
+              "FIXME"
+            ];
+          };
     };
   };
 }
