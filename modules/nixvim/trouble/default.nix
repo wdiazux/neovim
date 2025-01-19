@@ -4,7 +4,11 @@
     trouble = {
       enable = true;
 
-      lazyLoad.settings.event = "BufEnter";
+      lazyLoad.settings.cmd =
+        [ "Trouble" ]
+        ++ lib.optionals config.plugins.todo-comments.enable [
+          "TodoTrouble"
+        ];
 
       settings.modes = {
         preview_split = {
