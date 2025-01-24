@@ -29,6 +29,9 @@ in
         disabled_filetypes = {
           __unkeyed-1 = "startify";
           __unkeyed-2 = "neo-tree";
+          __unkeyed-3 = "copilot-chat";
+          __unkeyed-4 = "ministarter";
+          __unkeyed-5 = "trouble";
           winbar = [
             "neotest-summary"
           ];
