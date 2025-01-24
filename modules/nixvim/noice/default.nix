@@ -10,6 +10,8 @@
   plugins.noice = {
     enable = true;
 
+    lazyLoad.settings.event = "DeferredUIEnter";
+
     settings = {
       presets = {
         bottom_search = true;
