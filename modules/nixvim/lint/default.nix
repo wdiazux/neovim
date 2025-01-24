@@ -8,6 +8,9 @@
   plugins = {
     lint = {
       enable = true;
+
+      lazyLoad.settings.event = "DeferredUIEnter";
+
       lintersByFt = {
         bash = [ "shellcheck" ];
         css = lib.mkIf (!config.plugins.lsp.servers.stylelint_lsp.enable) [ "stylelint" ];

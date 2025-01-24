@@ -59,44 +59,47 @@
 
   keymaps =
     [
-      (lib.mkIf (config.plugins.snacks.enable && config.plugins.snacks.settings.gitbrowse.enabled) {
-        mode = "n";
-        key = "<leader>go";
-        action = "<cmd>lua Snacks.gitbrowse()<CR>";
-        options = {
-          desc = "Open file in browser";
-        };
-      })
-      (lib.mkIf (config.plugins.snacks.enable && config.plugins.snacks.settings.lazygit.enabled) {
-        mode = "n";
-        key = "<leader>tg";
-        action = "<cmd>lua Snacks.lazygit()<CR>";
-        options = {
-          desc = "Open lazygit";
-        };
-      })
-      (lib.mkIf (config.plugins.snacks.enable && config.plugins.snacks.settings.lazygit.enabled) {
-        mode = "n";
-        key = "<leader>gg";
-        action = "<cmd>lua Snacks.lazygit()<CR>";
-        options = {
-          desc = "Open lazygit";
-        };
-      })
+      (lib.mkIf
+        (
+          config.plugins.snacks.enable
+          && lib.hasAttr "gitbrowse" config.plugins.snacks.settings
+          && config.plugins.snacks.settings.gitbrowse.enabled
+        )
+        {
+          mode = "n";
+          key = "<leader>go";
+          action = "<cmd>lua Snacks.gitbrowse()<CR>";
+          options = {
+            desc = "Open file in browser";
+          };
+        }
+      )
+      (lib.mkIf
+        (
+          config.plugins.snacks.enable
+          && lib.hasAttr "lazygit" config.plugins.snacks.settings
+          && config.plugins.snacks.settings.lazygit.enabled
+        )
+        {
+          mode = "n";
+          key = "<leader>gg";
+          action = "<cmd>lua Snacks.lazygit()<CR>";
+          options = {
+            desc = "Open lazygit";
+          };
+        }
+      )
     ]
-    ++ lib.optionals (config.plugins.snacks.enable && config.plugins.snacks.settings.bufdelete.enabled)
+    ++ lib.optionals
+      (
+        config.plugins.snacks.enable
+        && lib.hasAttr "bufdelete" config.plugins.snacks.settings
+        && config.plugins.snacks.settings.bufdelete.enabled
+      )
       [
         {
           mode = "n";
           key = "<leader>c";
-          action = ''<cmd>lua Snacks.bufdelete.delete()<cr>'';
-          options = {
-            desc = "Close buffer";
-          };
-        }
-        {
-          mode = "n";
-          key = "<C-w>";
           action = ''<cmd>lua Snacks.bufdelete.delete()<cr>'';
           options = {
             desc = "Close buffer";

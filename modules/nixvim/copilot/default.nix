@@ -3,6 +3,9 @@
   plugins = {
     copilot-lua = {
       enable = true;
+
+      lazyLoad.settings.event = [ "DeferredUIEnter" ];
+
       settings = {
         panel.enabled = false;
         suggestion.enabled = false;

@@ -3,6 +3,8 @@
   plugins.flash = {
     enable = true;
 
+    lazyLoad.settings.event = "DeferredUIEnter";
+
     settings = {
       modes = {
         char = {

@@ -22,7 +22,7 @@ in
     {
       enable = true;
 
-      lazyLoad.settings.event = "BufEnter";
+      lazyLoad.settings.event = "DeferredUIEnter";
 
       settings = {
         options = {

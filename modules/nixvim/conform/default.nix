@@ -51,6 +51,11 @@
   plugins.conform-nvim = {
     enable = true;
 
+    lazyLoad.settings = {
+      cmd = [ "ConformInfo" ];
+      event = [ "BufWrite" ];
+    };
+
     luaConfig.pre = ''
       local slow_format_filetypes = {}
     '';
