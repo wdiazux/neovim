@@ -50,7 +50,10 @@
             download = false;
             ignore_version_mismatch = true;
           };
-          appearance.use_nvim_cmp_as_default = true;
+          appearance = {
+            use_nvim_cmp_as_default = true;
+            kind_icons.Copilot = "";
+          };
           keymap = {
             preset = "enter";
             "<A-Tab>" = [
