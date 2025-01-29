@@ -9,9 +9,9 @@ let
 in
 {
   performance.byteCompileLua = {
-    enable = !lazyEnabled;
-    nvimRuntime = !lazyEnabled;
-    configs = !snacksPickerEnabled;
-    plugins = !snacksPickerEnabled;
+    enable = true;
+    nvimRuntime = true;
+    configs = true;
+    plugins = true;
   };
 }
