@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ config, lib, ... }:
 let
   cfg = config.plugins.git-worktree;
 in
@@ -6,7 +6,7 @@ in
   plugins = {
     git-worktree = {
       enable = true;
-      enableTelescope = true;
+      enableTelescope = config.plugins.telescope.enable;
     };
 
     which-key.settings.spec = lib.optionals (cfg.enableTelescope && cfg.enable) [

@@ -1,13 +1,14 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }:
 {
   plugins = {
     neotest = {
       enable = true;
+
       lazyLoad = {
         settings = {
           keys = [
@@ -18,7 +19,7 @@
             }
             {
               __unkeyed-1 = "<leader>dn";
-              __unkeyed-3 = ''
+              __unkeyed-3.__raw = ''
                 function()
                   require("neotest").run.run({strategy = "dap"})
                 end
@@ -32,7 +33,7 @@
             }
             {
               __unkeyed-1 = "<leader>nd";
-              __unkeyed-3 = ''
+              __unkeyed-3.__raw = ''
                 function()
                   require("neotest").run.run({strategy = "dap"})
                 end
@@ -56,7 +57,7 @@
             }
             {
               __unkeyed-1 = "<leader>nR";
-              __unkeyed-3 = ''
+              __unkeyed-3.__raw = ''
                 function()
                   require("neotest").run.run(vim.fn.expand("%"))
                 end
@@ -74,21 +75,51 @@
 
       settings = {
         adapters = lib.optionals config.plugins.rustaceanvim.enable [
+          # Lua
           ''require('rustaceanvim.neotest')''
         ];
       };
 
       adapters = lib.mkIf config.plugins.treesitter.enable {
         bash.enable = config.plugins.neotest.enable;
+        deno.enable = config.plugins.neotest.enable;
+        dotnet = {
+          inherit (config.plugins.neotest) enable;
+
+          settings = {
+            dap = {
+              args = {
+                justMyCode = false;
+              };
+            };
+          };
+        };
+        go.enable = config.plugins.neotest.enable;
+        java.enable = config.plugins.neotest.enable;
+        # NOTE: just run NeotestJava setup
+        # java.settings = {
+        # Not sure why this wasn't working
+        # junit_jar =
+        #   pkgs.fetchurl
+        #     {
+        #       url = "https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.1/junit-platform-console-standalone-1.10.1.jar";
+        #       hash = "sha256-tC6qU9E1dtF9tfuLKAcipq6eNtr5X0JivG6W1Msgcl8=";
+        #     }
+        #     .outPath;
+        # };
+        jest.enable = config.plugins.neotest.enable;
         playwright.enable = config.plugins.neotest.enable;
         plenary.enable = config.plugins.neotest.enable;
         python.enable = config.plugins.neotest.enable;
+        # rust.enable = config.plugins.neotest.enable;
+        # FIXME: broken nixpkgs
+        zig.enable = config.plugins.neotest.enable && pkgs.stdenv.hostPlatform.isLinux;
       };
     };
 
     which-key.settings.spec = lib.optionals config.plugins.neotest.enable [
       {
-        __unkeyed-1 = "<leader>n";
+        __unkeyed = "<leader>n";
         group = "Neotest";
         icon = "󰙨";
       }

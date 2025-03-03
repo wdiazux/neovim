@@ -22,7 +22,6 @@
         neverShowByPattern = [
           ".direnv"
           ".git"
-          ".idea"
         ];
 
         visible = true;

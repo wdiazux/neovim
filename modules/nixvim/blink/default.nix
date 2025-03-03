@@ -5,19 +5,11 @@
   ...
 }:
 {
-  extraPackages = with pkgs; [
-    gh
-    wordnet
-  ];
-  extraPlugins = lib.mkIf config.plugins.blink-cmp.enable (
-    with pkgs.vimPlugins;
+  extraPackages = lib.mkIf config.plugins.blink-cmp.enable (
+    with pkgs;
     [
-      blink-cmp-dictionary
-      blink-cmp-git
-      blink-cmp-spell
-      blink-copilot
-      blink-emoji-nvim
-      blink-ripgrep-nvim
+      gh
+      wordnet
     ]
   );
 
@@ -75,9 +67,9 @@
               };
             };
           };
-          fuzzy.prebuilt_binaries = {
-            download = false;
-            ignore_version_mismatch = true;
+          fuzzy = {
+            # implementation = "rust";
+            prebuilt_binaries.download = false;
           };
           appearance = {
             use_nvim_cmp_as_default = true;
@@ -108,23 +100,27 @@
           };
           snippets.preset = "mini_snippets";
           sources = {
-            default = [
-              # Built-in sources
-              "buffer"
-              "lsp"
-              "path"
-              "snippets"
-              # Community
-              "copilot"
-              "dictionary"
-              "emoji"
-              "git"
-              "spell"
-              # cmp sources
-              # TODO: migrate when available
-              "calc"
-              "zsh"
-            ];
+            default =
+              [
+                # Built-in sources
+                "buffer"
+                "lsp"
+                "path"
+                "snippets"
+                # Community
+                "copilot"
+                "dictionary"
+                "emoji"
+                "git"
+                "spell"
+                # TODO: migrate when available
+                # "calc"
+              ]
+              ++ lib.optionals config.plugins.avante.enable [
+                "avante_commands"
+                "avante_files"
+                "avante_mentions"
+              ];
             providers =
               {
                 # Built-in sources
@@ -156,6 +152,15 @@
                       return vim.o.filetype == 'gitcommit' or vim.o.filetype == 'markdown'
                     end
                   '';
+                  opts = {
+                    git_centers = {
+                      github = {
+                        issue = {
+                          on_error.__raw = "function(_,_) return true end";
+                        };
+                      };
+                    };
+                  };
                 };
                 ripgrep = {
                   name = "Ripgrep";
@@ -169,38 +174,38 @@
                   score_offset = 1;
                 };
               }
-              // lib.optionalAttrs config.plugins.blink-compat.enable {
-                # Cmp sources
-                calc = {
-                  name = "calc";
+              // lib.optionalAttrs (config.plugins.avante.enable && config.plugins.blink-compat.enable) {
+                avante_commands = {
+                  name = "avante_commands";
                   module = "blink.compat.source";
-                  score_offset = 2;
+                  score_offset = 90;
                 };
-                npm = {
-                  name = "npm";
+                avante_files = {
+                  name = "avante_files";
                   module = "blink.compat.source";
-                  score_offset = -3;
+                  score_offset = 100;
                 };
-                zsh = {
-                  name = "zsh";
+                avante_mentions = {
+                  name = "avante_mentions";
                   module = "blink.compat.source";
-                  score_offset = -3;
+                  score_offset = 1000;
                 };
               };
           };
         };
       };
 
+      blink-cmp-copilot.enable = !config.plugins.blink-copilot.enable;
+      blink-cmp-dictionary.enable = true;
+      blink-cmp-git.enable = true;
+      blink-cmp-spell.enable = true;
+      blink-copilot.enable = true;
+      blink-emoji.enable = true;
+      blink-ripgrep.enable = true;
       blink-compat.enable = true;
     }
-    (lib.mkIf config.plugins.blink-cmp.enable {
-      cmp-calc.enable = true;
-      cmp-zsh.enable = true;
-
-      lsp.capabilities = # Lua
-        ''
-          capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
-        '';
-    })
+    # (lib.mkIf config.plugins.blink-cmp.enable {
+    #   cmp-calc.enable = true;
+    # })
   ];
 }

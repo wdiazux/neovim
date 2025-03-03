@@ -4,36 +4,15 @@
   ...
 }:
 {
+  imports = [
+    ./harper-ls.nix
+    ./helm-ls.nix
+    ./nixd.nix
+    ./typos-lsp.nix
+  ];
+
+  # TODO: migrate to mkneovimplugin
   extraConfigLuaPre = ''
-    local diagnostic_signs = { Error = "", Warn = "", Hint = "", Info = "" }
-
-    for type, icon in pairs(diagnostic_signs) do
-      local hl = "DiagnosticSign" .. type
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-    end
-
-    local function preview_location_callback(_, result)
-      if result == nil or vim.tbl_isempty(result) then
-        vim.notify('No location found to preview')
-        return nil
-      end
-    local buf, _ = vim.lsp.util.preview_location(result[1])
-      if buf then
-        local cur_buf = vim.api.nvim_get_current_buf()
-        vim.bo[buf].filetype = vim.bo[cur_buf].filetype
-      end
-    end
-
-    function peek_definition()
-      local params = vim.lsp.util.make_position_params()
-      return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
-    end
-
-    local function peek_type_definition()
-      local params = vim.lsp.util.make_position_params()
-      return vim.lsp.buf_request(0, 'textDocument/typeDefinition', params, preview_location_callback)
-    end
-
     require('lspconfig.ui.windows').default_options = {
       border = "rounded"
     }
@@ -41,6 +20,7 @@
 
   plugins = {
     lsp-format.enable = !config.plugins.conform-nvim.enable && config.plugins.lsp.enable;
+    lsp-lines.enable = config.plugins.lsp.enable;
     lsp-signature.enable = config.plugins.lsp.enable;
 
     lsp = {
@@ -49,48 +29,67 @@
 
       keymaps = {
         silent = true;
-
         diagnostic = {
+          # Navigate in diagnostics
           "<leader>l[" = "goto_prev";
           "<leader>l]" = "goto_next";
           "<leader>lH" = "open_float";
         };
 
-        extra = [
-          {
-            action.__raw = ''vim.lsp.buf.format'';
-            mode = "v";
-            key = "<leader>lf";
-            options = {
-              silent = true;
-              buffer = false;
-              desc = "Format selection";
-            };
-          }
-          {
-            action.__raw = "peek_definition";
-            mode = "n";
-            key = "<leader>lp";
-            options.desc = "Preview definition";
-          }
-          {
-            action.__raw = "peek_type_definition";
-            mode = "n";
-            key = "<leader>lP";
-            options.desc = "Preview type definition";
-          }
-        ];
+        extra =
+          [
+            {
+              action.__raw = ''vim.lsp.buf.format'';
+              mode = "v";
+              key = "<leader>lf";
+              options = {
+                silent = true;
+                buffer = false;
+                desc = "Format selection";
+              };
+            }
+          ]
+          ++ lib.optionals (!config.plugins.glance.enable) [
+            {
+              action = "<CMD>PeekDefinition textDocument/definition<CR>";
+              mode = "n";
+              key = "<leader>lp";
+              options = {
+                desc = "Preview definition";
+              };
+            }
+            {
+              action = "<CMD>PeekDefinition textDocument/typeDefinition<CR>";
+              mode = "n";
+              key = "<leader>lP";
+              options = {
+                desc = "Preview type definition";
+              };
+            }
+          ];
 
-        lspBuf = {
-          "<leader>la" = "code_action";
-          "<leader>ld" = "definition";
-          "<leader>lD" = "references";
-          "<leader>lf" = "format";
-          "<leader>lh" = "hover";
-          "<leader>li" = "implementation";
-          "<leader>lr" = "rename";
-          "<leader>lt" = "type_definition";
-        };
+        lspBuf =
+          {
+            "<leader>lf" = "format";
+            "<leader>lh" = "hover";
+            "<leader>lr" = "rename";
+          }
+          // lib.optionalAttrs (!config.plugins.fzf-lua.enable) { "<leader>la" = "code_action"; }
+          //
+            lib.optionalAttrs
+              (
+                (
+                  !config.plugins.snacks.enable
+                  || (config.plugins.snacks.enable && !lib.hasAttr "picker" config.plugins.snacks.settings)
+                )
+                && !config.plugins.fzf-lua.enable
+              )
+              {
+                "<leader>ld" = "definition";
+                "<leader>li" = "implementation";
+                "<leader>lD" = "references";
+                "<leader>lt" = "type_definition";
+              };
       };
 
       servers = {
@@ -100,6 +99,7 @@
         cssls.enable = true;
         dockerls.enable = true;
         eslint.enable = true;
+        fish_lsp.enable = true;
         html.enable = true;
         jsonls.enable = true;
         lua_ls.enable = true;
@@ -108,6 +108,9 @@
         pyright.enable = true;
         ruff.enable = true;
         sqls.enable = true;
+        statix.enable = true;
+        stylelint_lsp.enable = true;
+        tailwindcss.enable = true;
         taplo.enable = true;
         ts_ls.enable = !config.plugins.typescript-tools.enable;
         yamlls.enable = true;
