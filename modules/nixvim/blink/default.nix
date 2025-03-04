@@ -68,7 +68,7 @@
             };
           };
           fuzzy = {
-            # implementation = "rust";
+            implementation = "rust";
             prebuilt_binaries.download = false;
           };
           appearance = {

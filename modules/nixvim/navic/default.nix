@@ -6,7 +6,7 @@
 
     settings.lsp = {
       autoAttach = true;
-      preference = [ "ts-ls" ];
+      preference = [ "tsserver" ];
     };
   };
 }

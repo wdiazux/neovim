@@ -1,14 +1,10 @@
 {
+  lib,
   config,
   helpers,
-  lib,
   ...
 }:
 {
-  extraConfigLuaPre = ''
-    function bool2str(bool) return bool and "on" or "off" end
-  '';
-
   globals = {
     mapleader = " ";
     maplocalleader = " ";
@@ -161,7 +157,7 @@
                   desc = "Vertical split";
                 };
               };
-              "\\" = {
+              "-" = {
                 action = "<Cmd>split<CR>";
                 options = {
                   desc = "Horizontal split";
@@ -273,6 +269,23 @@
                 };
               };
 
+              "<leader>uW" = {
+                action.__raw = ''
+                  function ()
+                    if (not vim.g.whitespace_character_enabled) then
+                      vim.cmd('set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣')
+                      vim.cmd('set list')
+                    else
+                      vim.cmd('set nolist')
+                    end
+                    vim.g.whitespace_character_enabled = not vim.g.whitespace_character_enabled
+                    vim.notify(string.format("Showing white space characters %s", bool2str(vim.g.whitespace_character_enabled), "info"))
+                  end'';
+                options = {
+                  desc = "White space character toggle";
+                };
+              };
+
               "<leader>uh" = {
                 action.__raw = ''
                   function ()
@@ -283,17 +296,6 @@
                   end'';
                 options = {
                   desc = "Fold Column toggle";
-                };
-              };
-
-              "<leader>uc" = {
-                action.__raw = ''
-                  function ()
-                    vim.g.cmp_enabled = not vim.g.cmp_enabled
-                    vim.notify(string.format("Completions %s", bool2str(vim.g.cmp_enabled), "info"))
-                  end'';
-                options = {
-                  desc = "Completions toggle";
                 };
               };
             }
