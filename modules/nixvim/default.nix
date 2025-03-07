@@ -18,6 +18,7 @@
       spell_enabled = true;
       colorizing_enabled = 1;
       first_buffer_opened = false;
+      whitespace_character_enabled = false;
     };
 
     opts = {
