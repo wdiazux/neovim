@@ -1,11 +1,8 @@
-{ lib, config, ... }:
-let
-  cfg = config.plugins.diffview;
-in
+{ config, lib, ... }:
 {
   plugins.diffview.enable = true;
 
-  keymaps = lib.mkIf cfg.enable [
+  keymaps = lib.mkIf config.plugins.diffview.enable [
     {
       mode = "n";
       key = "<leader>gd";
@@ -20,7 +17,25 @@ in
         end
       '';
       options = {
-        desc = "Git Diff toggle";
+        desc = "Git Diff";
+        silent = true;
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>gD";
+      action.__raw = ''
+        function()
+          vim.g.diffview_enabled = not vim.g.diffview_enabled
+          if vim.g.diffview_enabled then
+            vim.cmd('DiffviewClose')
+          else
+            vim.cmd('DiffviewOpen FETCH_HEAD')
+          end
+        end
+      '';
+      options = {
+        desc = "Git Diff HEAD";
         silent = true;
       };
     }

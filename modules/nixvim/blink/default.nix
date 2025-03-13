@@ -8,7 +8,9 @@
   extraPackages = lib.mkIf config.plugins.blink-cmp.enable (
     with pkgs;
     [
+      # blink-cmp-git
       gh
+      # blink-cmp-dictionary
       wordnet
     ]
   );
@@ -17,6 +19,13 @@
     {
       blink-cmp = {
         enable = true;
+
+        # TODO: fix fuzzy library check with lazy loading
+        # plugin searches `start` instead of `opt` in pack
+        # lazyLoad.settings.event = [
+        #   "InsertEnter"
+        #   "CmdlineEnter"
+        # ];
 
         settings = {
           completion = {
@@ -69,11 +78,15 @@
           };
           fuzzy = {
             implementation = "rust";
-            prebuilt_binaries.download = false;
+            prebuilt_binaries = {
+              download = false;
+            };
           };
           appearance = {
             use_nvim_cmp_as_default = true;
-            kind_icons.Copilot = "";
+            kind_icons = {
+              Copilot = "";
+            };
           };
           keymap = {
             preset = "enter";
@@ -100,37 +113,34 @@
           };
           snippets.preset = "mini_snippets";
           sources = {
-            default =
-              [
-                # Built-in sources
-                "buffer"
-                "lsp"
-                "path"
-                "snippets"
-                # Community
-                "copilot"
-                "dictionary"
-                "emoji"
-                "git"
-                "spell"
-                # TODO: migrate when available
-                # "calc"
-              ]
-              ++ lib.optionals config.plugins.avante.enable [
-                "avante_commands"
-                "avante_files"
-                "avante_mentions"
-              ];
+            default = [
+              # BUILT-IN SOURCES
+              "buffer"
+              "lsp"
+              "path"
+              "snippets"
+              # Community
+              "copilot"
+              "dictionary"
+              "emoji"
+              "git"
+              "spell"
+              # FIXME: locking up nvim
+              # "ripgrep"
+              # Cmp sources
+              # TODO: migrate when available
+              "calc"
+            ];
             providers =
               {
-                # Built-in sources
+                # BUILT-IN SOURCES
                 lsp.score_offset = 4;
                 # Community sources
                 copilot = {
                   name = "copilot";
                   module = "blink-copilot";
                   async = true;
-                  score_offset = 3;
+                  score_offset = 100;
                 };
                 dictionary = {
                   name = "Dict";
@@ -174,21 +184,12 @@
                   score_offset = 1;
                 };
               }
-              // lib.optionalAttrs (config.plugins.avante.enable && config.plugins.blink-compat.enable) {
-                avante_commands = {
-                  name = "avante_commands";
+              // lib.optionalAttrs config.plugins.blink-compat.enable {
+                # Cmp sources
+                calc = {
+                  name = "calc";
                   module = "blink.compat.source";
-                  score_offset = 90;
-                };
-                avante_files = {
-                  name = "avante_files";
-                  module = "blink.compat.source";
-                  score_offset = 100;
-                };
-                avante_mentions = {
-                  name = "avante_mentions";
-                  module = "blink.compat.source";
-                  score_offset = 1000;
+                  score_offset = 2;
                 };
               };
           };
@@ -204,8 +205,8 @@
       blink-ripgrep.enable = true;
       blink-compat.enable = true;
     }
-    # (lib.mkIf config.plugins.blink-cmp.enable {
-    #   cmp-calc.enable = true;
-    # })
+    (lib.mkIf config.plugins.blink-cmp.enable {
+      cmp-calc.enable = true;
+    })
   ];
 }

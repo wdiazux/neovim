@@ -8,14 +8,6 @@
 
   keymaps = lib.mkIf (config.plugins.mini.enable && lib.hasAttr "git" config.plugins.mini.modules) [
     {
-      mode = "n";
-      key = "<leader>gD";
-      action = "<CMD>lua MiniGit.show_diff_source()<CR>";
-      options = {
-        desc = "Show diff source";
-      };
-    }
-    {
       mode = "";
       key = "<leader>gH";
       action = "<CMD>lua MiniGit.show_range_history()<CR>";

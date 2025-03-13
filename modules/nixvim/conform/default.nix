@@ -1,11 +1,18 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
   plugins.conform-nvim = {
     enable = true;
 
     lazyLoad.settings = {
-      cmd = [ "ConformInfo" ];
-      event = [ "BufWrite" ];
+      cmd = [
+        "ConformInfo"
+      ];
+      event = [ "BufWritePre" ];
     };
 
     luaConfig.pre = ''
@@ -13,32 +20,36 @@
     '';
 
     settings = {
+      default_format_opts = {
+        lsp_format = "fallback";
+      };
+
       format_on_save = # Lua
         ''
           function(bufnr)
-               if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-                 return
-               end
+            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+              return
+            end
 
-                -- Disable autoformat for slow filetypes
-               if slow_format_filetypes[vim.bo[bufnr].filetype] then
-                 return
-               end
+             -- Disable autoformat for slow filetypes
+            if slow_format_filetypes[vim.bo[bufnr].filetype] then
+              return
+            end
 
-                -- Disable autoformat for files in a certain path
-               local bufname = vim.api.nvim_buf_get_name(bufnr)
-               if bufname:match("/node_modules/") or bufname:match("/.direnv/") then
-                 return
-               end
+             -- Disable autoformat for files in a certain path
+            local bufname = vim.api.nvim_buf_get_name(bufnr)
+            if bufname:match("/node_modules/") or bufname:match("/.direnv/") then
+              return
+            end
 
-               local function on_format(err)
-                 if err and err:match("timeout$") then
-                   slow_format_filetypes[vim.bo[bufnr].filetype] = true
-                 end
-               end
+            local function on_format(err)
+              if err and err:match("timeout$") then
+                slow_format_filetypes[vim.bo[bufnr].filetype] = true
+              end
+            end
 
-               return { timeout_ms = 200, lsp_fallback = true }, on_format
-              end 
+            return { timeout_ms = 200, lsp_fallback = true }, on_format
+           end
         '';
 
       format_after_save = # Lua
@@ -70,6 +81,7 @@
           "shellharden"
           "shfmt"
         ];
+        bicep = [ "bicep" ];
         css = [ "stylelint" ];
         fish = [ "fish_indent" ];
         javascript = {
@@ -105,23 +117,29 @@
           "xmllint"
         ];
         yaml = [ "yamlfmt" ];
-        "_" = [
-          "squeeze_blanks"
-          "trim_whitespace"
-          "trim_newlines"
-        ];
       };
 
       formatters = {
-        biome.command = lib.getExe pkgs.biome;
+        bicep.command = lib.getExe pkgs.bicep;
+        biome = {
+          command = lib.getExe pkgs.biome;
+          env = {
+            BIOME_CONFIG_PATH = pkgs.writeTextFile {
+              name = "biome.json";
+              text = lib.generators.toJSON { } { formatter.useEditorconfig = true; };
+            };
+          };
+        };
+        black.command = lib.getExe pkgs.black;
+        deno_fmt.command = lib.getExe pkgs.deno;
         isort.command = lib.getExe pkgs.isort;
         jq.command = lib.getExe pkgs.jq;
         nixfmt.command = lib.getExe pkgs.nixfmt-rfc-style;
         prettierd.command = lib.getExe pkgs.prettierd;
         ruff.command = lib.getExe pkgs.ruff;
         shellcheck.command = lib.getExe pkgs.shellcheck;
-        shfmt.command = lib.getExe pkgs.shfmt;
         shellharden.command = lib.getExe pkgs.shellharden;
+        shfmt.command = lib.getExe pkgs.shfmt;
         sqlfluff.command = lib.getExe pkgs.sqlfluff;
         squeeze_blanks.command = lib.getExe' pkgs.coreutils "cat";
         stylelint.command = lib.getExe pkgs.stylelint;
@@ -131,6 +149,64 @@
         xmlformat.command = lib.getExe pkgs.xmlformat;
         yamlfmt.command = lib.getExe pkgs.yamlfmt;
       };
+    };
+  };
+
+  keymaps = lib.optionals config.plugins.conform-nvim.enable [
+    {
+      action.__raw = ''
+        function(args)
+         vim.cmd({cmd = 'Conform', args = args});
+        end
+      '';
+      mode = "v";
+      key = "<leader>lf";
+      options = {
+        silent = true;
+        buffer = false;
+        desc = "Format selection";
+      };
+    }
+    {
+      action.__raw = ''
+        function()
+          vim.cmd('Conform');
+        end
+      '';
+      key = "<leader>lf";
+      options = {
+        silent = true;
+        desc = "Format buffer";
+      };
+    }
+  ];
+
+  userCommands = lib.mkIf config.plugins.conform-nvim.enable {
+    Conform = {
+      desc = "Formatting using conform.nvim";
+      range = true;
+      command.__raw = ''
+        function(args)
+          ${lib.optionalString config.plugins.lz-n.enable "require('lz.n').trigger_load('conform.nvim')"}
+          local range = nil
+          if args.count ~= -1 then
+            local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+            range = {
+              start = { args.line1, 0 },
+              ["end"] = { args.line2, end_line:len() },
+            }
+          end
+          require("conform").format({ async = true, lsp_format = "fallback", range = range },
+          function(err)
+            if not err then
+              local mode = vim.api.nvim_get_mode().mode
+              if vim.startswith(string.lower(mode), "v") then
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+              end
+            end
+          end)
+        end
+      '';
     };
   };
 }
