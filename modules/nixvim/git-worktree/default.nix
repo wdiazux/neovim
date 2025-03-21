@@ -1,15 +1,20 @@
-{ config, lib, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
-  cfg = config.plugins.git-worktree;
+  worktreeEnabled = builtins.elem pkgs.vimPlugins.git-worktree-nvim config.extraPlugins;
+  worktreeTelescopeEnabled = worktreeEnabled && config.plugins.telescope.enable;
 in
 {
-  plugins = {
-    git-worktree = {
-      enable = true;
-      enableTelescope = config.plugins.telescope.enable;
-    };
+  extraPlugins = with pkgs.vimPlugins; [ git-worktree-nvim ];
 
-    which-key.settings.spec = lib.optionals (cfg.enableTelescope && cfg.enable) [
+  plugins = {
+    telescope.enabledExtensions = lib.optionals worktreeTelescopeEnabled [ "git_worktree" ];
+
+    which-key.settings.spec = lib.optionals worktreeTelescopeEnabled [
       {
         __unkeyed-1 = "<leader>gW";
         group = "Worktree";
@@ -18,7 +23,7 @@ in
     ];
   };
 
-  keymaps = lib.mkIf cfg.enableTelescope [
+  keymaps = lib.mkIf worktreeTelescopeEnabled [
     {
       mode = "n";
       key = "<leader>fg";
@@ -37,7 +42,7 @@ in
     {
       mode = "n";
       key = "<leader>gWs";
-      action = "<cmd>Telescope git_worktree git_worktrees<CR>";
+      action = "<cmd>Telescope git_worktree git_worktree<CR>";
       options = {
         desc = "Switch / Delete worktree";
         silent = true;

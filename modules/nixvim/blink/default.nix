@@ -15,17 +15,16 @@
     ]
   );
 
+  extraPlugins = with pkgs.vimPlugins; [
+    blink-cmp-avante
+    blink-cmp-conventional-commits
+    blink-nerdfont-nvim
+  ];
+
   plugins = lib.mkMerge [
     {
       blink-cmp = {
         enable = true;
-
-        # TODO: fix fuzzy library check with lazy loading
-        # plugin searches `start` instead of `opt` in pack
-        # lazyLoad.settings.event = [
-        #   "InsertEnter"
-        #   "CmdlineEnter"
-        # ];
 
         settings = {
           completion = {
@@ -78,15 +77,11 @@
           };
           fuzzy = {
             implementation = "rust";
-            prebuilt_binaries = {
-              download = false;
-            };
+            prebuilt_binaries.download = false;
           };
           appearance = {
             use_nvim_cmp_as_default = true;
-            kind_icons = {
-              Copilot = "";
-            };
+            kind_icons.Copilot = "";
           };
           keymap = {
             preset = "enter";
@@ -121,15 +116,14 @@
               "snippets"
               # Community
               "copilot"
+              "conventional_commits"
               "dictionary"
               "emoji"
               "git"
+              "nerdfont"
               "spell"
               # FIXME: locking up nvim
               # "ripgrep"
-              # Cmp sources
-              # TODO: migrate when available
-              "calc"
             ];
             providers =
               {
@@ -141,6 +135,15 @@
                   module = "blink-copilot";
                   async = true;
                   score_offset = 100;
+                };
+                conventional_commits = {
+                  name = "Conventional Commits";
+                  module = "blink-cmp-conventional-commits";
+                  enabled.__raw = ''
+                    function()
+                      return vim.bo.filetype == 'gitcommit'
+                    end
+                  '';
                 };
                 dictionary = {
                   name = "Dict";
@@ -183,13 +186,19 @@
                   module = "blink-cmp-spell";
                   score_offset = 1;
                 };
+                nerdfont = {
+                  module = "blink-nerdfont";
+                  name = "Nerd Fonts";
+                  score_offset = 15;
+                  opts = {
+                    insert = true;
+                  };
+                };
               }
-              // lib.optionalAttrs config.plugins.blink-compat.enable {
-                # Cmp sources
-                calc = {
-                  name = "calc";
-                  module = "blink.compat.source";
-                  score_offset = 2;
+              // lib.optionalAttrs config.plugins.avante.enable {
+                avante = {
+                  module = "blink-cmp-avante";
+                  name = "Avante";
                 };
               };
           };
@@ -203,10 +212,6 @@
       blink-copilot.enable = true;
       blink-emoji.enable = true;
       blink-ripgrep.enable = true;
-      blink-compat.enable = true;
     }
-    (lib.mkIf config.plugins.blink-cmp.enable {
-      cmp-calc.enable = true;
-    })
   ];
 }
